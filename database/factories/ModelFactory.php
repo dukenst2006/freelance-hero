@@ -31,7 +31,7 @@ $factory->define(App\Project::class, function(Faker\Generator $faker) {
 	];
 });
 
-$factory->define(App\Company::class, function(Faker\Generator $faker) {
+$factory->define(App\Organization::class, function(Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
 		'user_id' => factory(App\User::class)->create()->id

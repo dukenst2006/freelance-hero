@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->date('target_end_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('user_id')->unsigned();
-            $table->integer('company_id')->unsigned()->nullable();
+            $table->integer('organization_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
