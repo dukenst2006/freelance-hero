@@ -1,20 +1,20 @@
 <?php
 
-use App\Project;
+use App\User;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ProjectTest extends TestCase
+class UserTest extends TestCase
 {
 	use DatabaseTransactions;
 
 	/** @test */
-    public function returns_all_projects()
+    public function returns_all_users()
     {
-    	factory(Project::class, 3)->create();
+    	factory(User::class, 3)->create();
 
-    	$projects = Project::all();
-        $this->assertEquals(3, $projects->count());
+    	$users = User::all();
+        $this->assertEquals(3, $users->count());
     }
 }

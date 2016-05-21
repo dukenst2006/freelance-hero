@@ -13,19 +13,27 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'last_name'	=> $faker->lastName,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'remember_token' => str_random(10)
     ];
 });
 
 $factory->define(App\Project::class, function(Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
-		'date_started' => $faker->date,
+		'start_date' => $faker->date,
 		'target_end_date' => $faker->date,
-		'date_completed' => $faker->date,
-		'user_id' => factory(App\User::class)->create()->id,
+		'end_date' => $faker->date,
+		'user_id' => factory(App\User::class)->create()->id
+	];
+});
+
+$factory->define(App\Company::class, function(Faker\Generator $faker) {
+	return [
+		'name' => $faker->name,
+		'user_id' => factory(App\User::class)->create()->id
 	];
 });

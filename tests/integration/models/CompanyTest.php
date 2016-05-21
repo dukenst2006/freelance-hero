@@ -1,20 +1,20 @@
 <?php
 
-use App\Project;
+use App\Company;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ProjectTest extends TestCase
+class CompanyTest extends TestCase
 {
 	use DatabaseTransactions;
 
 	/** @test */
-    public function returns_all_projects()
+    public function returns_all_companies()
     {
-    	factory(Project::class, 3)->create();
+    	factory(Company::class, 3)->create();
 
-    	$projects = Project::all();
-        $this->assertEquals(3, $projects->count());
+    	$companies = Company::all();
+        $this->assertEquals(3, $companies->count());
     }
 }

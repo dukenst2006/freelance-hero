@@ -15,11 +15,11 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->date('date_started');
-            $table->date('target_end_date');
-            $table->date('date_completed');
+            $table->date('start_date')->nullable();
+            $table->date('target_end_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('user_id')->unsigned();
-            $table->integer('company_id')->unsigned();
+            $table->integer('company_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
