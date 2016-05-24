@@ -25,8 +25,8 @@ $factory->define(App\Project::class, function(Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
 		'start_date' => $faker->date,
-		'target_end_date' => $faker->date,
-		'end_date' => $faker->date,
+		'target_end_date' => $faker->optional()->date,
+		'end_date' => $faker->optional()->date,
 		'user_id' => factory(App\User::class)->create()->id
 	];
 });
