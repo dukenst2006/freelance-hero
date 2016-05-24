@@ -1,6 +1,7 @@
 <?php
 
 use App\Project;
+use App\User;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -28,10 +29,19 @@ class ProjectTest extends TestCase
     }
 
     /** @test */
-    public function a_project_must_have_a_start_date()
+    public function a_project_has_a_start_date()
     {
     	$project = factory(Project::class)->create();
 
     	$this->assertNotEmpty($project->start_date);
+    }
+
+    /** @test */
+    public function a_project_belongs_to_a_user()
+    {
+        $user = factory(User::class)->create();
+        $project = factory(Project::class)->create(['user_id' => $user->id]);
+
+        $this->assertEquals($user->id, $project->user->id);
     }
 }
