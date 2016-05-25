@@ -3,6 +3,7 @@
 use App\User;
 use App\Project;
 use App\WorkSession;
+use App\Organization;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -54,5 +55,17 @@ class UserTest extends TestCase
         $this->assertEquals($user->id, $work_session1->user->id);
         $this->assertEquals($user->id, $work_session2->user->id);
         $this->assertEquals(count($user->work_sessions), 2);
+    }
+
+    /** @test */
+    public function a_user_has_organizations()
+    {
+        $user = factory(User::class)->create();
+        $organization1 = factory(Organization::class)->create(['user_id' => $user->id]);
+        $organization2 = factory(Organization::class)->create(['user_id' => $user->id]);
+
+        $this->assertEquals($user->id, $organization1->user->id);
+        $this->assertEquals($user->id, $organization2->user->id);
+        $this->assertEquals(count($user->organizations), 2);
     }
 }
