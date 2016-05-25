@@ -2,6 +2,7 @@
 
 use App\Organization;
 use App\User;
+use App\Project;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -35,5 +36,17 @@ class OrganizationTest extends TestCase
     	$organization = factory(Organization::class)->create(['user_id' => $user->id]);
 
     	$this->assertEquals($user->id, $organization->user->id);
+    }
+
+    /** @test */
+    public function an_organization_has_projects()
+    {
+    	$organization = factory(Organization::class)->create();
+    	$project1 = factory(Project::class)->create(['organization_id' => $organization->id]);
+    	$project2 = factory(Project::class)->create(['organization_id' => $organization->id]);
+
+    	$this->assertEquals($organization->id, $project1->organization->id);
+    	$this->assertEquals($organization->id, $project2->organization->id);
+    	$this->assertEquals(count($organization->projects), 2);
     }
 }
