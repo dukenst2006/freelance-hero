@@ -2,6 +2,7 @@
 
 use App\User;
 use App\Project;
+use App\WorkSession;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -41,5 +42,17 @@ class UserTest extends TestCase
     	$this->assertEquals($user->id, $project1->user->id);
     	$this->assertEquals($user->id, $project2->user->id);
     	$this->assertEquals(count($user->projects), 2);
+    }
+
+    /** @test */
+    public function a_user_may_have_work_sessions()
+    {
+        $user = factory(User::class)->create();
+        $work_session1 = factory(WorkSession::class)->create(['user_id' => $user->id]);
+        $work_session2 = factory(WorkSession::class)->create(['user_id' => $user->id]);
+
+        $this->assertEquals($user->id, $work_session1->user->id);
+        $this->assertEquals($user->id, $work_session2->user->id);
+        $this->assertEquals(count($user->work_sessions), 2);
     }
 }

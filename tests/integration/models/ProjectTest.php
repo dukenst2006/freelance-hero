@@ -3,6 +3,7 @@
 use App\Project;
 use App\User;
 use App\Organization;
+use App\WorkSession;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -61,5 +62,17 @@ class ProjectTest extends TestCase
         $project = factory(Project::class)->make(['organization_id' => null]);
 
         $this->assertTrue($project->save());
+    }
+
+    /** @test */
+    public function a_project_may_have_work_sessions()
+    {
+        $project = factory(Project::class)->create();
+        $work_session1 = factory(WorkSession::class)->create(['project_id' => $project->id]);
+        $work_session2 = factory(WorkSession::class)->create(['project_id' => $project->id]);
+
+        $this->assertEquals($project->id, $work_session1->project->id);
+        $this->assertEquals($project->id, $work_session2->project->id);
+        $this->assertEquals(count($project->work_sessions), 2);
     }
 }

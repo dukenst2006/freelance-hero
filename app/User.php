@@ -28,4 +28,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Project');
     }
+
+    public function work_sessions()
+    {
+        return $this->hasMany('App\WorkSession');
+    }
 }

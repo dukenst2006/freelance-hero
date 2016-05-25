@@ -29,4 +29,9 @@ class Project extends Model
     {
         return $this->belongsTo('App\Organization');
     }
+
+    public function work_sessions()
+    {
+        return $this->hasMany('App\WorkSession');
+    }
 }
