@@ -20,3 +20,4 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('organizations', 'OrganizationsController');
+Route::resource('projects', 'ProjectsController');

@@ -9,7 +9,7 @@ class CreateOrganizationsTest extends TestCase
 	use DatabaseTransactions;
 
     /** @test */
-    public function a_user_cannot_access_organizations_page_without_logging_in()
+    public function a_user_cannot_access_create_organization_page_without_logging_in()
     {
     	$this->visit('/organizations/create')->seePageIs('/login');
     }
@@ -42,6 +42,10 @@ class CreateOrganizationsTest extends TestCase
 	         ->seePageIs('/organizations');
 
 		$this->seeInDatabase('organizations', ['name' => 'RGR']);
+
+        $organization = App\Organization::where(['name' => 'RGR'])->get()->first();
+
+        $this->assertEquals($organization->user_id, $user->id);
     }
 
     /** @test */
