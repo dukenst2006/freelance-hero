@@ -14,6 +14,7 @@ class CreateWorkSessionsTest extends TestCase
     	$this->visit('/work_sessions/create')->seePageIs('/login');
     }
 
+    // not passing - need to work on
     public function a_logged_in_user_can_create_a_work_session()
     {
     	$user = factory(App\User::class)->create();

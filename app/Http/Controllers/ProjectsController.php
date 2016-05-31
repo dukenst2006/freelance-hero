@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Project;
+use App\Organization;
 use App\Http\Requests\ProjectRequest;
 
 class ProjectsController extends Controller
@@ -22,7 +23,12 @@ class ProjectsController extends Controller
 
     public function create()
     {
-    	return view('projects.create');
+        $organizations = Organization::all();
+        $organization_list = array();
+        foreach ( $organizations as $organization ) {
+            $organization_list[ $organization['id'] ] = $organization['name'];
+        }
+    	return view('projects.create', compact('organization_list'));
     }
 
     public function store(ProjectRequest $request)

@@ -27,11 +27,7 @@ class CreateProjectsTest extends TestCase
 	         ->press('Create')
 	         ->seePageIs('/projects');
 
-		$this->seeInDatabase('projects', ['name' => 'Sigma']);
-
-        $project = App\Project::where(['name' => 'Sigma'])->get()->first();
-
-        $this->assertEquals($project->user_id, $user->id);
+		$this->seeInDatabase('projects', ['name' => 'Sigma', 'user_id' => $user->id]);
     }
 
     /** @test */
@@ -47,5 +43,23 @@ class CreateProjectsTest extends TestCase
 	         ->press('Create')
     		 ->see('The name field is required.')
     		 ->seePageIs('/projects/create');
+    }
+
+    /** @test */
+    public function a_project_can_be_created_with_an_organization()
+    {
+        $user = factory(App\User::class)->create();
+        $organization = factory(App\Organization::class)->create();
+
+        $this->actingAs($user)
+             ->visit('/projects/create')
+             ->type('Sigma', 'name')
+             ->type('2016-05-30', 'start_date')
+             ->type('2016-06-30', 'target_end_date')
+             ->select($organization->id, 'organization_id')
+             ->press('Create')
+             ->seePageIs('/projects');
+
+        $this->seeInDatabase('projects', ['name' => 'Sigma', 'organization_id' => $organization->id]);
     }
 }

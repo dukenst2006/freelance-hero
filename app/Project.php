@@ -17,7 +17,7 @@ class Project extends Model
         'target_end_date',
         'date_completed',
         'user_id',
-        'company_id'
+        'organization_id'
     ];
 
     public function user()
