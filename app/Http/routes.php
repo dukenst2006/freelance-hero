@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index');
 Route::resource('organizations', 'OrganizationsController');
 Route::resource('projects', 'ProjectsController');
 Route::resource('work_sessions', 'WorkSessionsController');
+Route::get('/start_session', 'WorkSessionsController@create');
