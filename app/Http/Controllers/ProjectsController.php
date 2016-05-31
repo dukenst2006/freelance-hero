@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
-use App\Http\Requests;
 use App\Project;
 use App\Organization;
 use App\Http\Requests\ProjectRequest;

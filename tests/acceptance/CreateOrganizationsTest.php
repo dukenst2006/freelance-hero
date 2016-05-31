@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+use App\Organization;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -8,20 +10,14 @@ class CreateOrganizationsTest extends TestCase
 {
 	use DatabaseTransactions;
 
-    /** @test */
-    public function a_user_cannot_access_create_organization_page_without_logging_in()
-    {
-    	$this->visit('/organizations/create')->seePageIs('/login');
-    }
-
 	/** @test */
 	public function organizations_page_shows_all_organizations_for_logged_in_user()
 	{
-        $user1 = factory(App\User::class)->create();
-        $user2 = factory(App\User::class)->create();
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
 
-		$organization1 = factory(App\Organization::class)->create(['name' => 'RGR', 'user_id' => $user1->id]);
-		$organization2 = factory(App\Organization::class)->create(['name' => 'Other', 'user_id' => $user2->id]);
+		$organization1 = factory(Organization::class)->create(['name' => 'RGR', 'user_id' => $user1->id]);
+		$organization2 = factory(Organization::class)->create(['name' => 'Other', 'user_id' => $user2->id]);
 
         $this->actingAs($user1)
 	    	 ->visit('/organizations')
@@ -33,7 +29,7 @@ class CreateOrganizationsTest extends TestCase
 	/** @test */
     public function completing_new_organization_form_creates_valid_organization()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(User::class)->create();
 
         $this->actingAs($user)
 	    	 ->visit('/organizations/create')
@@ -41,23 +37,6 @@ class CreateOrganizationsTest extends TestCase
 	         ->press('Create')
 	         ->seePageIs('/organizations');
 
-		$this->seeInDatabase('organizations', ['name' => 'RGR']);
-
-        $organization = App\Organization::where(['name' => 'RGR'])->get()->first();
-
-        $this->assertEquals($organization->user_id, $user->id);
-    }
-
-    /** @test */
-    public function an_organization_cannot_be_created_without_a_name()
-    {
-    	$user = factory(App\User::class)->create();
-
-    	$this->actingAs($user)
-    		 ->visit('/organizations/create')
-    		 ->type('', 'name')
-    		 ->press('Create')
-    		 ->see('The name field is required.')
-    		 ->seePageIs('/organizations/create');
+		$this->seeInDatabase('organizations', ['name' => 'RGR', 'user_id' => $user->id]);
     }
 }

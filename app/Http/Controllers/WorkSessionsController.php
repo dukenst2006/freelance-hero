@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
 use App\Project;
 use App\WorkSession;
-use App\Http\Requests;
 use App\Http\Requests\WorkSessionRequest;
-use Auth;
 
 class WorkSessionsController extends Controller
 {

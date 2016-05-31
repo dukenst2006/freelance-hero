@@ -1,9 +1,8 @@
 <?php
 
-use App\WorkSession;
-use App\Project;
 use App\User;
-
+use App\Project;
+use App\WorkSession;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

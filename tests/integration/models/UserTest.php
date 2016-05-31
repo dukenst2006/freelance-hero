@@ -4,7 +4,6 @@ use App\User;
 use App\Project;
 use App\WorkSession;
 use App\Organization;
-
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
