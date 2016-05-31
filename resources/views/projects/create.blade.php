@@ -24,19 +24,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group {{ $errors->has('organization_id') ? 'has-error' : '' }}">
-                            {!! Form::label('organization_id', 'Organization', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+                            {!! Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                    {!! Form::select('organization_id', $organization_list, null, ['placeholder' => 'No Organization', 'class' => 'form-control']); !!}
+                                    {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive'), 'Active', ['class' => 'form-control']); !!}
 
-                                @if ($errors->has('organization_id'))
+                                @if ($errors->has('status'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('organization_id') }}</strong>
+                                        <strong>{{ $errors->first('status') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div>                        
+                        </div>
 
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Start Date</label>
@@ -61,6 +61,20 @@
                                 @if ($errors->has('target_end_date'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('target_end_date') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->has('organization_id') ? 'has-error' : '' }}">
+                            {!! Form::label('organization_id', 'Organization', ['class' => 'col-md-4 control-label']) !!}
+
+                            <div class="col-md-6">
+                                    {!! Form::select('organization_id', $organization_list, null, ['placeholder' => 'No Organization', 'class' => 'form-control']); !!}
+
+                                @if ($errors->has('organization_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('organization_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
