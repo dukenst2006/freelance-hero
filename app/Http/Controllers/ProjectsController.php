@@ -22,11 +22,7 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        $organizations = Organization::all();
-        $organization_list = array();
-        foreach ( $organizations as $organization ) {
-            $organization_list[ $organization['id'] ] = $organization['name'];
-        }
+        $organization_list = Organization::lists('name', 'id');
     	return view('projects.create', compact('organization_list'));
     }
 

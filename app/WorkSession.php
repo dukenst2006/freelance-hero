@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class WorkSession extends Model
 {
@@ -18,6 +19,11 @@ class WorkSession extends Model
         'user_id',
         'project_id'
     ];
+
+    public static function active()
+    {
+        return WorkSession::where(['end_time' => null, 'user_id' => Auth::user()->id])->get();
+    }
 
     public function project()
     {

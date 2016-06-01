@@ -16,17 +16,13 @@ class WorkSessionsController extends Controller
 
     public function active()
     {
-        $work_sessions = WorkSession::where(['end_time' => null, 'user_id' => Auth::user()->id])->get();
+        $work_sessions = WorkSession::active();
         return view('work_sessions.active', compact('work_sessions'));
     }
 
     public function create()
     {
-        $projects = Project::all();
-        $project_list = array();
-        foreach ( $projects as $project ) {
-            $project_list[ $project['id'] ] = $project['name'];
-        }
+        $project_list = Project::lists('name', 'id');
     	return view('work_sessions.create', compact('project_list'));
     }
 
