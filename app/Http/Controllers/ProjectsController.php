@@ -16,7 +16,8 @@ class ProjectsController extends Controller
 
     public function index()
     {
-    	//
+        $projects = Project::where(['user_id' => Auth::user()->id])->get();
+    	return view('projects.index', compact('projects'));
     }
 
     public function create()

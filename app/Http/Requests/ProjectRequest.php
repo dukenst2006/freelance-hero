@@ -25,8 +25,8 @@ class ProjectRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'start_date' => 'required',
-            'target_end_date' => 'after:start_date'
+            'start_date' => 'required|date_format:Y-m-d',
+            'target_end_date' => 'date_format:Y-m-d|after:start_date'
         ];
     }
 }

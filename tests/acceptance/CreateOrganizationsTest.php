@@ -10,33 +10,34 @@ class CreateOrganizationsTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	/** @test */
-	public function organizations_page_shows_all_organizations_for_logged_in_user()
-	{
-        $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create();
+    protected $user;
 
-		$organization1 = factory(Organization::class)->create(['name' => 'RGR', 'user_id' => $user1->id]);
-		$organization2 = factory(Organization::class)->create(['name' => 'Other', 'user_id' => $user2->id]);
-
-        $this->actingAs($user1)
-	    	 ->visit('/organizations')
-	    	 ->see('All Organizations')
-	    	 ->see('RGR')
-	    	 ->dontSee('Other');
-	}
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+    }
 
 	/** @test */
     public function completing_new_organization_form_creates_valid_organization()
     {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user)
+        $this->actingAs($this->user)
 	    	 ->visit('/organizations/create')
 	         ->type('RGR', 'name')
 	         ->press('Create')
 	         ->seePageIs('/organizations');
 
-		$this->seeInDatabase('organizations', ['name' => 'RGR', 'user_id' => $user->id]);
+		$this->seeInDatabase('organizations', ['name' => 'RGR', 'user_id' => $this->user->id]);
+    }
+
+    /** @test */
+    public function an_organization_cannot_be_created_without_a_name()
+    {
+    	$this->actingAs($this->user)
+    		 ->visit('/organizations/create')
+    		 ->type('', 'name')
+    		 ->press('Create')
+    		 ->see('The name field is required.')
+    		 ->seePageIs('/organizations/create');
     }
 }

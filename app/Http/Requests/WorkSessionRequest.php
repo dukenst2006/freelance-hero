@@ -27,4 +27,16 @@ class WorkSessionRequest extends Request
             'project_id' => 'required'
         ];
     }
+
+    /**
+     * Get the custom validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'project_id.required' => 'Please select a project.'
+        ];
+    }
 }
