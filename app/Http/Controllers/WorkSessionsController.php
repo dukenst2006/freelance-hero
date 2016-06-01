@@ -14,6 +14,12 @@ class WorkSessionsController extends Controller
         $this->middleware('auth');
 	}
 
+    public function active()
+    {
+        $work_sessions = WorkSession::where(['end_time' => null, 'user_id' => Auth::user()->id])->get();
+        return view('work_sessions.active', compact('work_sessions'));
+    }
+
     public function create()
     {
         $projects = Project::all();

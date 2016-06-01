@@ -34,7 +34,7 @@ class AuthorizationTest extends TestCase
     /** @test */
     public function a_user_cannot_create_a_work_session_as_a_guest()
     {
-    	$this->visit('/work_sessions/create')->seePageIs('/login');
+    	$this->visit('/work_sessions/start')->seePageIs('/login');
     }
 
     /** @test */
