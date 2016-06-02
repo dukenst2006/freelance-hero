@@ -9,6 +9,11 @@
 
                 <div class="panel-body">
                     Your Application's Landing Page.
+                    @if ( Session::has('active_work_session') )
+                    <form method="POST" action="{{ url('/work_sessions/end') }}">
+                    <button type="submit">End Session</button>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

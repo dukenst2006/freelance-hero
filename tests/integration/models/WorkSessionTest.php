@@ -27,8 +27,8 @@ class WorkSessionTest extends TestCase
     	$saved_session = WorkSession::find($work_session->id);
 
     	$this->assertNotEmpty($saved_session->start_time);
-    	$this->assertNotEmpty($saved_session->end_time);
-    	$this->assertNotEmpty($saved_session->total_time);    	
+    	$this->assertEmpty($saved_session->end_time);
+    	$this->assertEmpty($saved_session->total_time);    	
     }
 
     /** @test */

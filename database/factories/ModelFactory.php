@@ -41,8 +41,8 @@ $factory->define(App\Organization::class, function(Faker\Generator $faker) {
 $factory->define(App\WorkSession::class, function(Faker\Generator $faker) {
 	return [
 		'start_time' => $faker->dateTime,
-		'end_time' => $faker->dateTime,
-		'total_time' => $faker->time,
+		'end_time' => null,
+		'total_time' => null,
 		'user_id' => factory(App\User::class)->create()->id,
 		'project_id' => factory(App\Project::class)->create()->id
 	];
