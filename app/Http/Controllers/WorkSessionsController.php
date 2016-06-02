@@ -30,8 +30,8 @@ class WorkSessionsController extends Controller
     public function store(WorkSessionRequest $request)
     {
         //if an active session already exists for this user, don't create a new one
-        if ( count(WorkSession::active()) > 0 ) {
-            Session::flash('flash_error_message', 'An active session has already been. Please end that session before starting a new one.');
+        if ( WorkSession::active() ) {
+            Session::flash('flash_error_message', 'An active session already exists. Please end that session before starting a new one.');
             return redirect()->action('WorkSessionsController@create');
         }
 

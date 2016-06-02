@@ -20,9 +20,15 @@ class WorkSession extends Model
         'project_id'
     ];
 
-    public static function active()
+    /**
+     * Returns an active session for a given user if one exists; otherwise returns false
+     */
+    public static function active($user_id = null)
     {
-        return WorkSession::where(['end_time' => null, 'user_id' => Auth::user()->id])->get();
+        $user_id = $user_id ?: Auth::user()->id;
+        $work_session = WorkSession::where(['end_time' => null, 'user_id' => $user_id])->get();
+
+        return $work_session->isEmpty() ? false : $work_session;
     }
 
     public function project()

@@ -54,7 +54,7 @@ class ManageWorkSessionsTest extends TestCase
              ->visit('/work_sessions/start')
              ->select($project->id, 'project_id')
              ->press('Start Session')
-             ->see('An active session has already been. Please end that session before starting a new one.')
+             ->see('An active session already exists. Please end that session before starting a new one.')
              ->seePageIs('/work_sessions/start');
     }
 

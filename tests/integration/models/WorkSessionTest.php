@@ -48,4 +48,25 @@ class WorkSessionTest extends TestCase
 
     	$this->assertEquals($user->id, $work_session->user->id);
     }
+
+    /** @test */
+    public function can_fetch_current_work_session()
+    {
+        $user = factory(User::class)->create();
+        $work_session = factory(WorkSession::class)->create(['user_id' => $user->id]);
+        $active_session = WorkSession::active($user->id);
+
+        $this->assertEquals($active_session->id, $work_session->id);
+    }
+
+    /** @test */
+    public function active_session_function_throws_exception_if_no_active_session()
+    {
+        $user = factory(User::class)->create();
+        $work_session = factory(WorkSession::class)->create(['user_id' => $user->id, 'end_time' => '2016-06-01 12:00:00']);
+
+        $this->setExpectedException('Illuminate\Database\Eloquent\ModelNotFoundException');
+
+        $active_session = WorkSession::active($user->id);
+    }
 }
