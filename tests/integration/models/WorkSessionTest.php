@@ -65,8 +65,8 @@ class WorkSessionTest extends TestCase
         $user = factory(User::class)->create();
         $work_session = factory(WorkSession::class)->create(['user_id' => $user->id, 'end_time' => '2016-06-01 12:00:00']);
 
-        $this->setExpectedException('Illuminate\Database\Eloquent\ModelNotFoundException');
-
         $active_session = WorkSession::active($user->id);
+
+        $this->assertEmpty($active_session);
     }
 }

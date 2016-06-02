@@ -17,8 +17,8 @@ class WorkSessionsController extends Controller
 
     public function active()
     {
-        $work_sessions = WorkSession::active();
-        return view('work_sessions.active', compact('work_sessions'));
+        $work_session = WorkSession::active();
+        return view('work_sessions.active', compact('work_session'));
     }
 
     public function create()

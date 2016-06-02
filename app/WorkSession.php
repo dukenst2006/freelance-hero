@@ -26,9 +26,9 @@ class WorkSession extends Model
     public static function active($user_id = null)
     {
         $user_id = $user_id ?: Auth::user()->id;
-        $work_session = WorkSession::where(['end_time' => null, 'user_id' => $user_id])->get();
+        $work_session = WorkSession::where(['end_time' => null, 'user_id' => $user_id])->first();
 
-        return $work_session->isEmpty() ? false : $work_session;
+        return $work_session ?: false;
     }
 
     public function project()
