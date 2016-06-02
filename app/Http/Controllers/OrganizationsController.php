@@ -26,9 +26,7 @@ class OrganizationsController extends Controller
 
     public function store(OrganizationRequest $request)
     {
-    	$data = $request->all();
-    	$data['user_id'] = Auth::user()->id;
-    	Organization::create($data);
+        Auth::user()->organizations()->create($request->all());
 
         return redirect()->action('OrganizationsController@index');
     }

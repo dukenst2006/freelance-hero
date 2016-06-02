@@ -28,9 +28,7 @@ class ProjectsController extends Controller
 
     public function store(ProjectRequest $request)
     {
-    	$data = $request->all();
-    	$data['user_id'] = Auth::user()->id;
-    	Project::create($data);
+        Auth::user()->projects()->create($request->all());
 
         return redirect()->action('ProjectsController@index');
     }

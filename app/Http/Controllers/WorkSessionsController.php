@@ -36,10 +36,9 @@ class WorkSessionsController extends Controller
         }
 
         $data = $request->all();
-    	$data['user_id'] = Auth::user()->id;
-    	$data['start_time'] = new \DateTime();
-    	WorkSession::create($data);
+        $data['start_time'] = new \DateTime();
 
+        Auth::user()->work_sessions()->create($data);
         Session::put('active_work_session', true);
 
         return redirect()->action('HomeController@index');
@@ -47,7 +46,8 @@ class WorkSessionsController extends Controller
 
     public function end()
     {
-        $work_session = WorkSession::active()->first();
+        $work_session = WorkSession::active();
+
         $work_session->end_time = new \DateTime();
         $start_time_formatted = new \DateTime($work_session->start_time);
         $interval = $work_session->end_time->diff($start_time_formatted);
