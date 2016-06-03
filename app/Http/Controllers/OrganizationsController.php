@@ -19,6 +19,23 @@ class OrganizationsController extends Controller
     	return view('organizations.index', compact('organizations'));
     }
 
+    public function show(Organization $organization)
+    {
+        return view('organizations.show', compact('organization'));
+    }
+
+    public function edit(Organization $organization)
+    {
+        return view('organizations.edit', compact('organization'));
+    }
+
+    public function update(Organization $organization, OrganizationRequest $request)
+    {
+        $organization->update($request->all());
+
+        return redirect()->action('OrganizationsController@show', $organization->id);
+    }
+
     public function create()
     {
     	return view('organizations.create');
