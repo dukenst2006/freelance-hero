@@ -17,10 +17,16 @@ Route::get('/', function () {
 
 Route::auth();
 
+Route::get('/profile', 'UsersController@profile');
+Route::get('/profile/edit', 'UsersController@edit');
+Route::put('/profile', 'UsersController@update');
+
 Route::get('/home', 'HomeController@index');
 
 Route::resource('organizations', 'OrganizationsController');
+
 Route::resource('projects', 'ProjectsController');
+
 Route::get('work_sessions/start', 'WorkSessionsController@create');
 Route::get('work_sessions/active', 'WorkSessionsController@active');
 Route::post('work_sessions', 'WorkSessionsController@store');
