@@ -20,6 +20,23 @@ class ProjectsController extends Controller
     	return view('projects.index', compact('projects'));
     }
 
+    public function show(Project $project)
+    {
+        return view('projects.show', compact('project'));
+    }
+
+    public function edit(Project $project)
+    {
+        return view('projects.edit', compact('project'));
+    }
+
+    public function update(Project $project, ProjectRequest $request)
+    {
+        $project->update($request->all());
+
+        return redirect()->action('ProjectsController@show', $project->id);
+    }
+
     public function create()
     {
         $organization_list = Organization::lists('name', 'id');

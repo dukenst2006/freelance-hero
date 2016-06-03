@@ -16,7 +16,7 @@ class Project extends Model
         'status',
         'start_date',
         'target_end_date',
-        'date_completed',
+        'end_date',
         'user_id',
         'organization_id'
     ];
