@@ -21,6 +21,12 @@ class WorkSessionsController extends Controller
         return view('work_sessions.active', compact('work_session'));
     }
 
+    public function past()
+    {
+        $work_sessions = WorkSession::completed();
+        return view('work_sessions.past', compact('work_sessions'));
+    }
+
     public function create()
     {
         $project_list = Project::where(['user_id' => Auth::user()->id])->lists('name', 'id');

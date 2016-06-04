@@ -108,4 +108,67 @@ class ManageWorkSessionsTest extends TestCase
         $this->assertEquals($work_session_update->end_time, date("Y-m-d H:i:s"));
         $this->assertEquals($work_session_update->total_time, '01:00:00');
     }
+
+    /** @test */
+    public function a_user_can_view_past_work_sessions()
+    {
+        $project = factory(Project::class)->create(['name' => 'Test Project', 'user_id' => $this->user->id]);
+        $project2 = factory(Project::class)->create(['name' => 'Test Project 2', 'user_id' => $this->user->id]);
+        $work_session1 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project->id,
+            'start_time' => '2016-06-03 10:00:00',
+            'end_time' => '2016-06-03 11:00:00',
+            'total_time' => '01:00:00'
+        ]);
+
+        $work_session2 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project->id,
+            'start_time' => '2016-06-03 12:00:00',
+            'end_time' => '2016-06-03 12:30:00',
+            'total_time' => '00:30:00'
+        ]);
+
+        $work_session2 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project2->id,
+            'start_time' => '2016-06-03 13:00:00'
+        ]);
+
+        $this->actingAs($this->user)
+             ->visit('/work_sessions/past')
+             ->see('Test Project')
+             ->see('01:00:00')
+             ->see('00:30:00')
+             ->dontSee('Test Project 2');
+    }
+
+    /** @test */
+    public function a_user_will_only_see_their_past_sessions()
+    {
+        $project = factory(Project::class)->create(['name' => 'Test Project', 'user_id' => $this->user->id]);
+        $project2 = factory(Project::class)->create(['name' => 'Test Project 2', 'user_id' => $this->user->id]);
+        $user2 = factory(User::class)->create();
+        $work_session1 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project->id,
+            'start_time' => '2016-06-03 10:00:00',
+            'end_time' => '2016-06-03 11:00:00',
+            'total_time' => '01:00:00'
+        ]);
+
+        $work_session2 = factory(WorkSession::class)->create([
+            'user_id' => $user2->id,
+            'project_id' => $project2->id,
+            'start_time' => '2016-06-03 12:00:00',
+            'end_time' => '2016-06-03 12:30:00',
+            'total_time' => '00:30:00'
+        ]);
+
+        $this->actingAs($this->user)
+             ->visit('/work_sessions/past')
+             ->see('Test Project')
+             ->dontSee('Test Project 2');
+    }
 }

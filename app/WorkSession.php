@@ -31,6 +31,14 @@ class WorkSession extends Model
         return $work_session ?: false;
     }
 
+    public static function completed($user_id = null)
+    {
+        $user_id = $user_id ?: Auth::user()->id;
+        $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->get();
+
+        return $work_sessions;
+    }
+
     public function project()
     {
     	return $this->belongsTo('App\Project');
