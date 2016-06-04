@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     @if ( count($organizations) > 0 )
                         @foreach ( $organizations as $organization )
-                            <p>Name: {{ $organization->name }}</p>
+                            <p>Name: <a href="{{ action( 'OrganizationsController@show', $organization->id ) }}">{{ $organization->name }}</a></p>
                         @endforeach
                     @else
                         <p>No active organizations.</p>

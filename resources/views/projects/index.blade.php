@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     @if ( count($projects) > 0 )
                         @foreach ( $projects as $project )
-                            <p>Name: {{ $project->name }}</p>
+                            <p>Name: <a href="{{ action( 'ProjectsController@show', $project->id ) }}">{{ $project->name }}</a></p>
                         @endforeach
                     @else
                         <p>No active projects.</p>
