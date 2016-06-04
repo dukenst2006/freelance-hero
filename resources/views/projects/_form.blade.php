@@ -1,8 +1,8 @@
 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-    <label class="col-md-4 control-label">Name</label>
+    {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+        {!! Form::text('name', null, ['class' => 'form-control']) !!}
 
         @if ($errors->has('name'))
             <span class="help-block">
@@ -16,7 +16,7 @@
     {!! Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-            {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive'), 'Active', ['class' => 'form-control']); !!}
+        {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive'), 'Active', ['class' => 'form-control']); !!}
 
         @if ($errors->has('status'))
             <span class="help-block">
@@ -27,10 +27,10 @@
 </div>
 
 <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-    <label class="col-md-4 control-label">Start Date</label>
+    {!! Form::label('start_date', 'Start Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        <input type="text" class="form-control" name="start_date" value="{{ old('start_date') }}">
+        {!! Form::text('start_date', null, ['class' => 'form-control']) !!}
 
         @if ($errors->has('start_date'))
             <span class="help-block">
@@ -41,10 +41,10 @@
 </div>
 
 <div class="form-group{{ $errors->has('target_end_date') ? ' has-error' : '' }}">
-    <label class="col-md-4 control-label">Target End Date</label>
+    {!! Form::label('target_end_date', 'Target End Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        <input type="text" class="form-control" name="target_end_date" value="{{ old('target_end_date') }}">
+        {!! Form::text('target_end_date', null, ['class' => 'form-control']) !!}
 
         @if ($errors->has('target_end_date'))
             <span class="help-block">
@@ -56,10 +56,10 @@
 
 @if ( isset($project) )
 <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-    <label class="col-md-4 control-label">End Date</label>
+    {!! Form::label('end_date', 'End Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        <input type="text" class="form-control" name="end_date" value="{{ old('end_date') }}">
+        {!! Form::text('end_date', null, ['class' => 'form-control']) !!}
 
         @if ($errors->has('end_date'))
             <span class="help-block">
@@ -75,7 +75,7 @@
     {!! Form::label('organization_id', 'Organization', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-            {!! Form::select('organization_id', $organization_list, null, ['placeholder' => 'No Organization', 'class' => 'form-control']); !!}
+        {!! Form::select('organization_id', $organization_list, null, ['placeholder' => 'No Organization', 'class' => 'form-control']); !!}
 
         @if ($errors->has('organization_id'))
             <span class="help-block">

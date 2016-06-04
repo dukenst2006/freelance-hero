@@ -1,9 +1,7 @@
 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-    <label class="col-md-4 control-label">Name</label>
-
+    {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-
+        {!! Form::text('name', null, ['class' => 'form-control']) !!}
         @if ($errors->has('name'))
             <span class="help-block">
                 <strong>{{ $errors->first('name') }}</strong>
