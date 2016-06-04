@@ -43,13 +43,16 @@ class CreateProjectsTest extends TestCase
     /** @test */
     public function a_project_can_be_created_with_an_organization()
     {
-        $organization = factory(Organization::class)->create();
+        $organization = factory(Organization::class)->create(['name' => 'Org 1', 'user_id' => $this->user->id]);
+        $org2 = factory(Organization::class)->create(['name' => 'Org 2']);
 
         $this->actingAs($this->user)
              ->visit('/projects/create')
              ->type('Sigma', 'name')
              ->type('2016-05-30', 'start_date')
              ->type('2016-06-30', 'target_end_date')
+             ->see('Org 1')
+             ->dontSee('Org 2')
              ->select($organization->id, 'organization_id')
              ->press('Create')
              ->seePageIs('/projects');

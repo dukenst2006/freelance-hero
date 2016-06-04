@@ -39,7 +39,7 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        $organization_list = Organization::lists('name', 'id');
+        $organization_list = Organization::where(['user_id' => Auth::user()->id])->lists('name', 'id');
     	return view('projects.create', compact('organization_list'));
     }
 

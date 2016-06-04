@@ -22,10 +22,13 @@ class ManageWorkSessionsTest extends TestCase
     /** @test */
     public function a_user_can_start_a_work_session()
     {
-    	$project1 = factory(Project::class)->create();
+    	$project1 = factory(Project::class)->create(['name' => 'Test 1', 'user_id' => $this->user->id]);
+        $project2 = factory(Project::class)->create(['name' => 'Test 2']);
 
     	$this->actingAs($this->user)
     		 ->visit('/work_sessions/start')
+             ->see('Test 1')
+             ->dontSee('Test 2')
     		 ->select($project1->id, 'project_id')
     		 ->press('Start Session');
 
@@ -47,7 +50,7 @@ class ManageWorkSessionsTest extends TestCase
     /** @test */
     public function a_user_cannot_have_two_active_sessions()
     {
-        $project = factory(Project::class)->create(['name' => 'Test 1']);
+        $project = factory(Project::class)->create(['name' => 'Test 1', 'user_id' => $this->user->id]);
         $work_session1 = factory(WorkSession::class)->create(['user_id' => $this->user->id]);
 
         $this->actingAs($this->user)

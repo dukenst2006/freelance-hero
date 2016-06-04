@@ -23,7 +23,7 @@ class WorkSessionsController extends Controller
 
     public function create()
     {
-        $project_list = Project::lists('name', 'id');
+        $project_list = Project::where(['user_id' => Auth::user()->id])->lists('name', 'id');
     	return view('work_sessions.create', compact('project_list'));
     }
 
