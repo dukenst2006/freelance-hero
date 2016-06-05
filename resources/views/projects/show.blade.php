@@ -13,7 +13,14 @@
                     <p>Target End Date: {{ $project->target_end_date }}</p>
                     @if ( $project->end_date )
                     <p>Date Completed: {{ $project->end_date }}</p>
+                    @else
+                        <p>&nbsp;</p>
+                        {!! Form::model($project, array('action' => array('ProjectsController@complete'), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST')) !!}
+                            {!! Form::hidden('project_id', $project->id) !!}
+                            {!! Form::submit('Complete Project', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::close() !!}
                     @endif
+                    <p>&nbsp;</p>
                     <p><a href="{{ action( 'ProjectsController@edit', $project->id ) }}">Edit Project</a></p>
                 </div>
             </div>

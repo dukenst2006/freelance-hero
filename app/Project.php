@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -20,6 +21,18 @@ class Project extends Model
         'user_id',
         'organization_id'
     ];
+
+    public function complete()
+    {
+        if ( $this->user_id === Auth::user()->id ) {
+            $this->status = 'Completed';
+            $this->end_date = date('Y-m-d');
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function user()
     {

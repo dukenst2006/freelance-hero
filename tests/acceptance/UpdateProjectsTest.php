@@ -80,4 +80,20 @@ class UpdateProjectsTest extends TestCase
     		 ->see('The name field is required.')
     		 ->seePageIs('projects/' . $this->project->id . '/edit');
     }
+
+    /** @test */
+    public function a_user_can_complete_a_project()
+    {
+        $todays_date = date('Y-m-d');
+        $this->actingAs($this->user)
+             ->visit('projects/' . $this->project->id)
+             ->press('Complete Project')
+             ->seePageIs('projects/' . $this->project->id);
+
+        $this->seeInDatabase('projects', [
+                                        'id' => $this->project->id,
+                                        'status' => 'Completed',
+                                        'end_date' => $todays_date
+                                      ]);
+    }
 }

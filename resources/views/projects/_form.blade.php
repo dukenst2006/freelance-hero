@@ -16,7 +16,7 @@
     {!! Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive'), 'Active', ['class' => 'form-control']); !!}
+        {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive', 'Completed' => 'Completed'), 'Active', ['class' => 'form-control']); !!}
 
         @if ($errors->has('status'))
             <span class="help-block">

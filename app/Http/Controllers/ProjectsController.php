@@ -6,6 +6,7 @@ use Auth;
 use App\Project;
 use App\Organization;
 use App\Http\Requests\ProjectRequest;
+use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -48,5 +49,13 @@ class ProjectsController extends Controller
         Auth::user()->projects()->create($request->all());
 
         return redirect()->action('ProjectsController@index');
+    }
+
+    public function complete(Request $request)
+    {
+        $project = Project::find( $request->all()['project_id'] );
+        $project->complete();
+
+        return redirect()->action('ProjectsController@show', $project->id);
     }
 }
