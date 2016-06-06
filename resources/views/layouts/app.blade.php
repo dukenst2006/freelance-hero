@@ -57,8 +57,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/organizations') }}"><i class="fa fa-btn fa-user"></i>List</a></li>
-                                <li><a href="{{ url('/organizations/create') }}"><i class="fa fa-btn fa-sign-out"></i>Add New</a></li>
+                                <li><a href="{{ url('/organizations') }}"><i class="fa fa-btn fa-list"></i>List</a></li>
+                                <li><a href="{{ url('/organizations/create') }}"><i class="fa fa-btn fa-plus-square"></i>Add New</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -67,8 +67,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/projects') }}"><i class="fa fa-btn fa-user"></i>List</a></li>
-                                <li><a href="{{ url('/projects/create') }}"><i class="fa fa-btn fa-sign-out"></i>Add New</a></li>
+                                <li><a href="{{ url('/projects') }}"><i class="fa fa-btn fa-list"></i>List</a></li>
+                                <li><a href="{{ url('/projects/create') }}"><i class="fa fa-btn fa-plus-square"></i>Add New</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -77,9 +77,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/work_sessions/start') }}"><i class="fa fa-btn fa-user"></i>Start Session</a></li>
-                                <li><a href="{{ url('/work_sessions/active') }}"><i class="fa fa-btn fa-sign-out"></i>Active Session</a></li>
-                                <li><a href="{{ url('/work_sessions/past') }}"><i class="fa fa-btn fa-sign-out"></i>Past Sessions</a></li>
+                                <li><a href="{{ url('/work_sessions/start') }}"><i class="fa fa-btn fa-play-circle"></i>Start Session</a></li>
+                                <li><a href="{{ url('/work_sessions/active') }}"><i class="fa fa-btn fa-hourglass-half"></i>Active Session</a></li>
+                                <li><a href="{{ url('/work_sessions/past') }}"><i class="fa fa-btn fa-hourglass-end"></i>Past Sessions</a></li>
                             </ul>
                         </li>
                     @endif
