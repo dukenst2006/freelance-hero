@@ -30,7 +30,7 @@
     {!! Form::label('start_date', 'Start Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        {!! Form::text('start_date', null, ['class' => 'form-control']) !!}
+        {!! Form::text('start_date', null, ['class' => 'form-control datepicker']) !!}
 
         @if ($errors->has('start_date'))
             <span class="help-block">
@@ -44,7 +44,7 @@
     {!! Form::label('target_end_date', 'Target End Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        {!! Form::text('target_end_date', null, ['class' => 'form-control']) !!}
+        {!! Form::text('target_end_date', null, ['class' => 'form-control datepicker']) !!}
 
         @if ($errors->has('target_end_date'))
             <span class="help-block">
