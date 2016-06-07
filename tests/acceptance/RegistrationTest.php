@@ -19,7 +19,7 @@ class RegistrationTest extends TestCase
 	         ->type('testing', 'password')
 	         ->type('testing', 'password_confirmation')
 	         ->press('Register')
-	         ->seePageIs('/');
+	         ->seePageIs('/home');
 
 		$this->seeInDatabase('users', ['email' => 'test@test.com', 'first_name' => 'Zack', 'last_name' => 'Mays']);
     }

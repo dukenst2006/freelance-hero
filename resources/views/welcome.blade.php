@@ -9,12 +9,6 @@
 
                 <div class="panel-body">
                     <p>Your Application's Landing Page.</p>
-                    @if ( Session::has('active_work_session') )
-                        <p>&nbsp;</p>
-                        {!! Form::open(array('action' => 'WorkSessionsController@end', 'class' => 'form-horizontal', 'role' => 'form')) !!}
-                            {!! Form::submit('End Session', ['class' => 'btn btn-primary']) !!}
-                        {!! Form::close() !!}
-                    @endif
                 </div>
             </div>
         </div>

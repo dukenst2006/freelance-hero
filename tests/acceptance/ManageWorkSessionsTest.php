@@ -99,7 +99,7 @@ class ManageWorkSessionsTest extends TestCase
         $this->session(['active_work_session' => 'true']);
 
         $this->actingAs($this->user)
-             ->visit('/')
+             ->visit('/home')
              ->see('End Session')
              ->press('End Session');
 
