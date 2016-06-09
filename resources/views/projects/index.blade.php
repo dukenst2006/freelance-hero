@@ -15,6 +15,7 @@
                     @else
                         <p>No active projects.</p>
                     @endif
+                    <p><a href="{{ action( 'ProjectsController@create' ) }}">Add New Project</a></p>
                 </div>
             </div>
         </div>

@@ -15,6 +15,7 @@
                     @else
                         <p>No active organizations.</p>
                     @endif
+                    <p><a href="{{ action( 'OrganizationsController@create' ) }}">Add New Organization</a></p>
                 </div>
             </div>
         </div>

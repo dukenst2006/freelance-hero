@@ -85,6 +85,17 @@
 
     @yield('content')
 
+
+    @if ( Session::has('active_work_session') )
+        <div id="work-session-panel">
+            <div class="panel-body">
+                {!! Form::open(array('action' => 'WorkSessionsController@end', 'class' => 'form-horizontal', 'role' => 'form')) !!}
+                    {!! Form::submit('End Session', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
+    @endif
+
     <!-- JavaScripts -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>

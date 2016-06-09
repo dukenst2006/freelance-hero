@@ -1,2 +1,10 @@
+#work-session-panel {
+  height: 300px;
+  width: 400px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #e6e6e6;
+  box-shadow: -1px -1px 5px #888888; }
 
 /*# sourceMappingURL=app.css.map */
