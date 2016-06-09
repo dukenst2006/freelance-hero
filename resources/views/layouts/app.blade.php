@@ -28,7 +28,7 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
 
@@ -48,40 +48,11 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                <ul class="nav navbar-nav navbar-left">
+                    <li {{ (preg_match( '/HomeController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/home') }}">Dashboard</a></li>
+                    <li {{ (preg_match( '/OrganizationsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/organizations') }}">Organizations</a></li>
+                    <li {{ (preg_match( '/ProjectsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/projects') }}">Projects</a></li>
                     @if (!Auth::guest())
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Organizations <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/organizations') }}"><i class="fa fa-btn fa-list"></i>List</a></li>
-                                <li><a href="{{ url('/organizations/create') }}"><i class="fa fa-btn fa-plus-square"></i>Add New</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Projects <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/projects') }}"><i class="fa fa-btn fa-list"></i>List</a></li>
-                                <li><a href="{{ url('/projects/create') }}"><i class="fa fa-btn fa-plus-square"></i>Add New</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Work Sessions <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/work_sessions/start') }}"><i class="fa fa-btn fa-play-circle"></i>Start Session</a></li>
-                                <li><a href="{{ url('/work_sessions/active') }}"><i class="fa fa-btn fa-hourglass-half"></i>Active Session</a></li>
-                                <li><a href="{{ url('/work_sessions/past') }}"><i class="fa fa-btn fa-hourglass-end"></i>Past Sessions</a></li>
-                            </ul>
-                        </li>
                     @endif
                 </ul>
 
@@ -92,7 +63,7 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
-                        <li class="dropdown">
+                        <li {{ (preg_match( '/UsersController/', Route::getCurrentRoute()->getActionName())) ? 'class=active dropdown' : 'class=dropdown' }} >
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->first_name }} <span class="caret"></span>
                             </a>
