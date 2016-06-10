@@ -64,6 +64,6 @@ class WorkSessionsController extends Controller
 
         Session::forget('active_work_session');
 
-        return redirect()->action('HomeController@index');        
+        return redirect()->action('WorkSessionsController@past');        
     }
 }

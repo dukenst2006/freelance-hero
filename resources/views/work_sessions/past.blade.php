@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     @if ( count($work_sessions) > 0 )
                         @foreach ( $work_sessions as $work_session )
-                            <p>Project: {{ $work_session->project->name }}, Length: {{ $work_session->total_time }}</p>
+                            <p>{{ date_format( date_create($work_session->end_time), 'F jS, Y') }}, {{ $work_session->project->name }}: <strong>{{ $work_session->total_time }}</strong></p>
                         @endforeach
                     @else
                         <p>No active work sessions.</p>
