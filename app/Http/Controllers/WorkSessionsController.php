@@ -46,6 +46,7 @@ class WorkSessionsController extends Controller
 
         Auth::user()->work_sessions()->create($data);
         Session::put('active_work_session', true);
+        Session::put('work_session_start_time', date('Y-m-d h:i:s'));
 
         return redirect()->action('HomeController@index');
     }

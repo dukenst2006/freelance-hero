@@ -87,8 +87,17 @@
 
 
     @if ( Session::has('active_work_session') )
+        <?php
+            $current = new DateTime(date('Y-m-d h:i:s'));
+            $start = new DateTime(Session::get('work_session_start_time'));
+            $interval = date_diff($current, $start);
+            $counter = sprintf('%02d', $interval->days * 24 + $interval->h) . $interval->format(':%I:%S');
+        ?>
         <div id="work-session-panel">
-            <div class="panel-body">
+            <div class="panel-body text-center">
+                <p class="lead">Session Time</p>
+                <h4 id="counter">{{ $counter }}</h4>
+                <p>&nbsp;</p>
                 {!! Form::open(array('action' => 'WorkSessionsController@end', 'class' => 'form-horizontal', 'role' => 'form')) !!}
                     {!! Form::submit('End Session', ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
