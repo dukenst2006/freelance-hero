@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegistrationTest extends TestCase
 {
-	use DatabaseTransactions;
+    use DatabaseTransactions;
+    use MailTracking;
 
     /** @test */
     public function can_complete_registration_form()
