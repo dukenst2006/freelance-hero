@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\WorkSession;
 use Session;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -128,5 +129,34 @@ class AuthController extends Controller
         Session::forget('active_work_session');
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Auth::guard($this->getGuard())->login($this->create($request->all()));
+
+        $data = $request->all();
+
+        Mail::send('emails.welcome', $data, function($message) use ($data) {
+            $message->to($data['email']);
+            $message->from('bar@foo.com');
+            $message->subject('Welcome to FreeLance Hero!');
+        });
+
+        return redirect($this->redirectPath());
     }
 }

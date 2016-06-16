@@ -20,6 +20,10 @@ class RegistrationTest extends TestCase
 	         ->type('testing', 'password')
 	         ->type('testing', 'password_confirmation')
 	         ->press('Register')
+             ->seeEmailWasSent()
+             ->seeEmailTo('test@test.com')
+             ->seeEmailSubjectLine('Welcome to FreeLance Hero!')
+             ->seeEmailContains('Thanks for Signing Up.')
 	         ->seePageIs('/home');
 
 		$this->seeInDatabase('users', ['email' => 'test@test.com', 'first_name' => 'Zack', 'last_name' => 'Mays']);
