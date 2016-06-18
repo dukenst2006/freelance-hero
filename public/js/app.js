@@ -28,7 +28,7 @@ function add() {
         }
     }
 
-    h1.textContent = hours + ":" + minutes + ":" + seconds;
+    h1.textContent = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
 
     timer();
 }
