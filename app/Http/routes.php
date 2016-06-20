@@ -33,3 +33,9 @@ Route::get('work_sessions/active', 'WorkSessionsController@active');
 Route::post('work_sessions', 'WorkSessionsController@store');
 Route::post('work_sessions/end', 'WorkSessionsController@end');
 Route::get('work_sessions/past', 'WorkSessionsController@past');
+
+Route::get('admin', 'AdminController@index');
+
+Route::get('/unauthorized', function() {
+	return view('errors.404');
+});

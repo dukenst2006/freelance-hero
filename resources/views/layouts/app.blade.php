@@ -49,10 +49,10 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-left">
-                    <li {{ (preg_match( '/HomeController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li {{ (preg_match( '/OrganizationsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/organizations') }}">Organizations</a></li>
-                    <li {{ (preg_match( '/ProjectsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/projects') }}">Projects</a></li>
                     @if (!Auth::guest())
+                        <li {{ (preg_match( '/HomeController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/home') }}">Dashboard</a></li>
+                        <li {{ (preg_match( '/OrganizationsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/organizations') }}">Organizations</a></li>
+                        <li {{ (preg_match( '/ProjectsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/projects') }}">Projects</a></li>
                     @endif
                 </ul>
 
