@@ -7,6 +7,7 @@ use App\Project;
 use App\WorkSession;
 use App\Http\Requests\WorkSessionRequest;
 use Session;
+use Carbon\Carbon;
 
 class WorkSessionsController extends Controller
 {
@@ -42,7 +43,7 @@ class WorkSessionsController extends Controller
         }
 
         $data = $request->all();
-        $data['start_time'] = new \DateTime();
+        $data['start_time'] = new Carbon();
 
         Auth::user()->work_sessions()->create($data);
         Session::put('active_work_session', true);
@@ -55,8 +56,8 @@ class WorkSessionsController extends Controller
     {
         $work_session = WorkSession::active();
 
-        $work_session->end_time = new \DateTime();
-        $start_time_formatted = new \DateTime($work_session->start_time);
+        $work_session->end_time = new Carbon();
+        $start_time_formatted = new Carbon($work_session->start_time);
         $interval = $work_session->end_time->diff($start_time_formatted);
         $work_session->total_time = $interval->days * 24 + $interval->h . $interval->format(':%I:%S');
 
