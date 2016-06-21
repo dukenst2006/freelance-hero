@@ -34,4 +34,16 @@ class AdminUserTest extends TestCase
     		 ->visit('/admin')
     		 ->see('Oops - you seen to have lost your way!');
     }
+
+    /** @test */
+    public function the_admin_page_lists_all_users()
+    {
+    	$user_two = factory(User::class)->create(['first_name' => 'Alice']);
+    	$user_three = factory(User::class)->create(['first_name' => 'Brian']);
+
+    	$this->actingAs($this->user)
+    		 ->visit('/admin')
+    		 ->see('Alice')
+    		 ->see('Brian');
+    }
 }
