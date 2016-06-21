@@ -104,6 +104,8 @@ class AuthController extends Controller
             if ( WorkSession::active() ) {
                 Session::put('active_work_session', true);
             }
+            $user = Auth::user();
+            $user->update(['last_logged_in' => \Carbon\Carbon::now()]);
             return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
