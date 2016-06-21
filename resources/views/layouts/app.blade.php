@@ -53,6 +53,9 @@
                         <li {{ (preg_match( '/HomeController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/home') }}">Dashboard</a></li>
                         <li {{ (preg_match( '/OrganizationsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/organizations') }}">Organizations</a></li>
                         <li {{ (preg_match( '/ProjectsController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/projects') }}">Projects</a></li>
+                        @if (Auth::user()->isAdmin())
+                            <li {{ (preg_match( '/AdminController/', Route::getCurrentRoute()->getActionName())) ? 'class=active' : null }} ><a href="{{ url('/admin') }}">Admin</a></li>
+                        @endif
                     @endif
                 </ul>
 

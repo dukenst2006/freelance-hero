@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,15 @@ class User extends Authenticatable
     public function organizations()
     {
         return $this->hasMany('App\Organization');
+    }
+
+    public function isAdmin(User $user = null)
+    {
+        $user = $user ?: Auth::user();
+        if ($user->role === "Admin") {
+            return true;
+        }
+
+        return false;
     }
 }

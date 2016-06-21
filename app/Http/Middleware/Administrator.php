@@ -16,8 +16,8 @@ class Administrator
      */
     public function handle($request, Closure $next)
     {
-        $user_role = Auth::user()->role;
-        if ($user_role != "Admin") {
+        $user = Auth::user();
+        if (!$user->isAdmin()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
