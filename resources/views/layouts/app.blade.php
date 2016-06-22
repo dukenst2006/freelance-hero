@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Freelance Hero</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -41,7 +41,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     Freelance Hero
                 </a>
             </div>
