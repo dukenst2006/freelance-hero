@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     <p>Status: {{ $project->status }}</p>
                     <p>Start Date: {{ $project->start_date }}</p>
-                    <p>Target End Date: {{ $project->target_end_date }}</p>
+                    <p>Target End Date: {{ $project->target_end_date ?: "N/A" }}</p>
                     @if ( $project->end_date )
                     <p>Date Completed: {{ $project->end_date }}</p>
                     @else

@@ -75,6 +75,20 @@ class CreateProjectsTest extends TestCase
     }
 
     /** @test */
+    public function target_end_date_is_set_to_null_when_left_blank()
+    {
+        $this->actingAs($this->user)
+             ->visit('/projects/create')
+             ->type('Sigma', 'name')
+             ->type('2016-05-30', 'start_date')
+             ->type('', 'target_end_date')
+             ->press('Create')
+             ->seePageIs('/projects');
+
+        $this->seeInDatabase('projects', ['name' => 'Sigma', 'user_id' => $this->user->id, 'target_end_date' => null]);
+    }
+
+    /** @test */
     public function a_project_must_have_a_name()
     {
         $this->actingAs($this->user)

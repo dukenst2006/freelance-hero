@@ -46,7 +46,9 @@ class ProjectsController extends Controller
 
     public function store(ProjectRequest $request)
     {
-        Auth::user()->projects()->create($request->all());
+        $project = new Project($request->all());
+        $project->target_end_date = $request->all()['target_end_date'] ?: null;
+        Auth::user()->projects()->save($project);
 
         return redirect()->action('ProjectsController@index');
     }

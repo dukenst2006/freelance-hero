@@ -74,4 +74,12 @@ class ProjectTest extends TestCase
         $this->assertEquals($project->id, $work_session2->project->id);
         $this->assertEquals(count($project->work_sessions), 2);
     }
+
+    /** @test */
+    public function a_project_without_end_date_set_has_null_end_date()
+    {
+        $project = factory(Project::class)->create(['target_end_date' => '']);
+
+        $this->assertEquals($project->target_end_date, null);
+    }
 }
