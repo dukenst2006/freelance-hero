@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Project;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -24,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $projects = Project::where(['user_id' => Auth::user()->id])->get();
+        return view('home', compact('projects'));
     }
 }
