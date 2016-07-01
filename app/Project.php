@@ -46,6 +46,6 @@ class Project extends Model
 
     public function work_sessions()
     {
-        return $this->hasMany('App\WorkSession');
+        return $this->hasMany('App\WorkSession')->orderBy('end_time', 'desc');
     }
 }

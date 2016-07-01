@@ -26,19 +26,50 @@
                                 $timeline = true;
                             }
                         ?>
-	                    <div class="col-sm-8">
-		                    <p><a href="{{ action( 'ProjectsController@show', $project->id ) }}">{{ $project->name }}</a></p>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><a href="{{ action( 'ProjectsController@show', $project->id ) }}">{{ $project->name }}</a></div>
 
-		                    @if ( $timeline )
-								<div class="progress">
-									<div class="progress-bar" role="progressbar" aria-valuenow="{{$project_percent_complete}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$project_percent_complete}}%;">
-										{{$project_percent_complete}}%
-									</div>
-								</div>
-							@else
-								<p><em>No timeline.</em></p>
-							@endif
-						</div>
+                                    <div class="panel-body">
+                                        <h5>Start Date: {{ $project->start_date }}</h5>
+                                        <h5>Target End Date: {{ $project->target_end_date ?: "None" }}</h5>
+                                        <p class="top-padding"><u>Progress</u></p>
+
+                                        @if ( $timeline )
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="{{$project_percent_complete}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$project_percent_complete}}%;">
+                                                    {{$project_percent_complete}}%
+                                                </div>
+                                            </div>
+                                        @else
+                                            <p><em>No timeline.</em></p>
+                                        @endif
+
+                                        <p class="top-padding"><u>Work Sessions</u></p>
+                                        @if ( count($project->work_sessions) > 0 )
+                                            @foreach( $project->work_sessions as $work_session )
+                                                <?php
+                                                    $session_time = new Carbon\Carbon($work_session->total_time);
+                                                    if ( $session_time->minute > 45 ) {
+                                                        $nearest_quarter = 0;
+                                                        $session_time->hour += 1;
+                                                    } else {
+                                                        $nearest_quarter = $session_time->minute - ($session_time->minute % 15) + 15;
+                                                    }
+                                                    $session_time_string = $session_time->hour . "hr, " . $nearest_quarter . "min";
+
+                                                    $session_date = new Carbon\Carbon($work_session->end_time);
+                                                ?>
+                                                <p>{{ $session_time_string }}, <em>{{ $session_date->diffForHumans() }}</em></p>
+                                            @endforeach
+                                        @else
+                                            <p><em>No work sessions.</em></p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 	                @endforeach
 	            @else
 	                <p>No active projects.</p>
