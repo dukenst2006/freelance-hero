@@ -39,6 +39,11 @@ class WorkSession extends Model
         return $work_sessions;
     }
 
+    public static function recent($number = 5)
+    {
+        return WorkSession::where(['user_id' => Auth::user()->id])->orderBy('end_time', 'desc')->limit($number)->get();
+    }
+
     public function project()
     {
     	return $this->belongsTo('App\Project');
