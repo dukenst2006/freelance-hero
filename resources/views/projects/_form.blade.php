@@ -59,7 +59,7 @@
     {!! Form::label('end_date', 'End Date', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        {!! Form::text('end_date', null, ['class' => 'form-control']) !!}
+        {!! Form::text('end_date', null, ['class' => 'form-control datepicker']) !!}
 
         @if ($errors->has('end_date'))
             <span class="help-block">

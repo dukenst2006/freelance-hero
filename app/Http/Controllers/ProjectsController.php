@@ -33,8 +33,10 @@ class ProjectsController extends Controller
 
     public function update(Project $project, ProjectRequest $request)
     {
-        $project->update($request->all());
-
+        $data = $request->all();
+        $data['end_date'] = $request->all()['end_date'] ?: null;
+        $data['target_end_date'] = $request->all()['target_end_date'] ?: null;
+        $project->update($data);
         return redirect()->action('ProjectsController@show', $project->id);
     }
 
