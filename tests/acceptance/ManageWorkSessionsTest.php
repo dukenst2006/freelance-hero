@@ -106,7 +106,7 @@ class ManageWorkSessionsTest extends TestCase
         $work_session_update = WorkSession::find($work_session_init->id);
 
         $this->assertEquals($work_session_update->end_time, date("Y-m-d H:i:s"));
-        $this->assertEquals($work_session_update->total_time, '01:00:00');
+        $this->assertEquals($work_session_update->total_hours, '1');
     }
 
     /** @test */
@@ -119,7 +119,7 @@ class ManageWorkSessionsTest extends TestCase
             'project_id' => $project->id,
             'start_time' => '2016-06-03 10:00:00',
             'end_time' => '2016-06-03 11:00:00',
-            'total_time' => '01:00:00'
+            'total_hours' => '1'
         ]);
 
         $work_session2 = factory(WorkSession::class)->create([
@@ -127,7 +127,7 @@ class ManageWorkSessionsTest extends TestCase
             'project_id' => $project->id,
             'start_time' => '2016-06-03 12:00:00',
             'end_time' => '2016-06-03 12:30:00',
-            'total_time' => '00:30:00'
+            'total_hours' => '.5'
         ]);
 
         $work_session2 = factory(WorkSession::class)->create([
@@ -139,8 +139,8 @@ class ManageWorkSessionsTest extends TestCase
         $this->actingAs($this->user)
              ->visit('/work_sessions/past')
              ->see('Test Project')
-             ->see('01:00:00')
-             ->see('00:30:00')
+             ->see('1hr(s)')
+             ->see('.5hr(s)')
              ->dontSee('Test Project 2');
     }
 
@@ -155,7 +155,7 @@ class ManageWorkSessionsTest extends TestCase
             'project_id' => $project->id,
             'start_time' => '2016-06-03 10:00:00',
             'end_time' => '2016-06-03 11:00:00',
-            'total_time' => '01:00:00'
+            'total_hours' => '1'
         ]);
 
         $work_session2 = factory(WorkSession::class)->create([
@@ -163,7 +163,7 @@ class ManageWorkSessionsTest extends TestCase
             'project_id' => $project2->id,
             'start_time' => '2016-06-03 12:00:00',
             'end_time' => '2016-06-03 12:30:00',
-            'total_time' => '00:30:00'
+            'total_hours' => '.5'
         ]);
 
         $this->actingAs($this->user)

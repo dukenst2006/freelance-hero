@@ -59,8 +59,19 @@ class WorkSessionsController extends Controller
         $work_session->end_time = new Carbon();
         $start_time_formatted = new Carbon($work_session->start_time);
         $interval = $work_session->end_time->diff($start_time_formatted);
-        $work_session->total_time = $interval->days * 24 + $interval->h . $interval->format(':%I:%S');
+        $work_session->total_hours = $interval->h;
 
+        if ( $interval->i > 45 ) {
+            $work_session->total_hours += 1;
+        } else {
+            if ( $interval->i % 15 != 0 ) {
+                $nearest_quarter = $interval->i - ($interval->i % 15) + 15;
+            } else {
+                $nearest_quarter = $interval->i;
+            }
+            $work_session->total_hours += $nearest_quarter / 60;
+        }
+        
         $work_session->save();
 
         Session::forget('active_work_session');

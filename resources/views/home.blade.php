@@ -49,19 +49,12 @@
                                         <p class="top-padding"><u>Work Sessions</u></p>
                                         @if ( count($project->work_sessions) > 0 )
                                             @foreach( $project->work_sessions as $work_session )
-                                                <?php
-                                                    $session_time = new Carbon\Carbon($work_session->total_time);
-                                                    if ( $session_time->minute > 45 ) {
-                                                        $nearest_quarter = 0;
-                                                        $session_time->hour += 1;
-                                                    } else {
-                                                        $nearest_quarter = $session_time->minute - ($session_time->minute % 15) + 15;
-                                                    }
-                                                    $session_time_string = $session_time->hour . "hr, " . $nearest_quarter . "min";
-
-                                                    $session_date = new Carbon\Carbon($work_session->end_time);
-                                                ?>
-                                                <p>{{ $session_time_string }}, <em>{{ $session_date->diffForHumans() }}</em></p>
+                                                @if ( $work_session->total_hours )
+                                                    <?php
+                                                        $session_date = new Carbon\Carbon($work_session->end_time);
+                                                    ?>
+                                                    <p>{{ $work_session->total_hours }}hr(s), <em>{{ $session_date->diffForHumans() }}</em></p>
+                                                @endif
                                             @endforeach
                                         @else
                                             <p><em>No work sessions.</em></p>
