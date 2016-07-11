@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/contact', 'BaseController@contact');
+
 Route::auth();
 
 Route::get('/profile', 'UsersController@profile');

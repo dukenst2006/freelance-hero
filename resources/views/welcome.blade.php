@@ -44,18 +44,19 @@
                 <p class="lead">Have questions or comments? Drop us a line!</p>
             </div>
             <div class="col-lg-6 col-sm-6">
-                <form>
+                <form action="/contact" method="POST">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="fullName">Name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Name">
+                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email Address">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Comments</label>
-                        <textarea class="form-control" rows="3"></textarea>  
+                        <label for="comments">Comments</label>
+                        <textarea class="form-control" rows="3" id="comments" name="comments"></textarea>  
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>

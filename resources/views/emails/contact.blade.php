@@ -1,0 +1,1 @@
+{{ $data['fullName'] }} filled out the contact form. Here's what he said: {{ $data['comments'] }}
