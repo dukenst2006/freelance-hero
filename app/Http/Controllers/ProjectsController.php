@@ -17,8 +17,9 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        $projects = Project::where(['user_id' => Auth::user()->id])->get();
-    	return view('projects.index', compact('projects'));
+        $organizations = Organization::where(['user_id' => Auth::user()->id])->get();
+        $personal_projects = Project::where(['user_id' => Auth::user()->id, 'organization_id' => 0])->get();
+    	return view('projects.index', compact('personal_projects'), compact('organizations'));
     }
 
     public function show(Project $project)

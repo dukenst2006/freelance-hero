@@ -10,6 +10,9 @@
 .top-padding {
   padding-top: 10px; }
 
+.bottom-padding-lg {
+  padding-bottom: 100px; }
+
 .intro-header {
   padding-top: 50px;
   /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */

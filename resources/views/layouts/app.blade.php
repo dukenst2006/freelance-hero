@@ -41,9 +41,15 @@
                 </button>
 
                 <!-- Branding Image -->
+                @if (!Auth::guest())
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    Freelance Hero
+                </a>
+                @else
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Freelance Hero
                 </a>
+                @endif
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
