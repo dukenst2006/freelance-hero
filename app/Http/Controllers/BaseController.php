@@ -19,6 +19,7 @@ class BaseController extends Controller
 
         Mail::send('emails.contact', ['data' => $data], function($message) use ($data) {
             $message->to('info@freelance-hero.com');
+            $message->bcc('zackmays@gmail.com');
             $message->from($data['email']);
             $message->subject('Contact Form Completed');
         });
