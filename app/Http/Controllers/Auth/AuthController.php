@@ -155,7 +155,8 @@ class AuthController extends Controller
 
         Mail::send('emails.welcome', $data, function($message) use ($data) {
             $message->to($data['email']);
-            $message->from('bar@foo.com');
+            $message->bcc('zackmays@gmail.com')
+            $message->from('info@freelance-hero.com');
             $message->subject('Welcome to FreeLance Hero!');
         });
 
