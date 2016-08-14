@@ -16,7 +16,15 @@
                             ?>
                             <h4>{{ $user->first_name }} {{ $user->last_name }}</h4>
                             <p>Email address: {{ $user->email }}</p>
-                            <p>Active: {{ $user->active ? 'Yes' : 'No' }}</p>
+                            @if ( $user->id != Auth::user()->id )
+                            <p>Active:
+                                @if ( $user->active )
+                                    Yes <a href="{{ action( 'AdminController@deactivateUser', $user->id ) }}">deactivate</a>
+                                @else
+                                    No <a href="{{ action( 'AdminController@activateUser', $user->id ) }}">activate</a>
+                                @endif
+                            </p>
+                            @endif
                             <p>Projects: {{ count( $user->projects )  }}</p>
                             <p>Last seen: {{ $last_seen }}</p>
                             <p>&nbsp;</p>

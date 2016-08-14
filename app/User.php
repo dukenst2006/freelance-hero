@@ -25,6 +25,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function activate()
+    {
+        $this->active = true;
+        $this->save();
+    }
+
+    public function deactivate()
+    {
+        $this->active = false;
+        $this->save();
+    }
+
     public function projects()
     {
         return $this->hasMany('App\Project');

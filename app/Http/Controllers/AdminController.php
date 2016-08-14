@@ -20,4 +20,16 @@ class AdminController extends Controller
     	$users = User::all();
     	return view('admin.index', compact('users'));
     }
+
+    public function activateUser(User $user)
+    {
+        $user->activate();
+        return redirect()->action('AdminController@index');
+    }
+
+    public function deactivateUser(User $user)
+    {
+        $user->deactivate();
+        return redirect()->action('AdminController@index');
+    }
 }
