@@ -16,6 +16,11 @@ class WorkSessionsController extends Controller
         $this->middleware('auth');
 	}
 
+    public function index()
+    {
+        return view('work_sessions.index');
+    }
+
     public function active()
     {
         $work_session = WorkSession::active();
@@ -26,6 +31,11 @@ class WorkSessionsController extends Controller
     {
         $work_sessions = WorkSession::completed();
         return view('work_sessions.past', compact('work_sessions'));
+    }
+
+    public function report()
+    {
+        return view('work_sessions.report', compact('weekly_totals'));
     }
 
     public function create()
@@ -71,7 +81,7 @@ class WorkSessionsController extends Controller
             }
             $work_session->total_hours += $nearest_quarter / 60;
         }
-        
+
         $work_session->save();
 
         Session::forget('active_work_session');

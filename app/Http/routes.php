@@ -32,9 +32,11 @@ Route::post('projects/complete', 'ProjectsController@complete');
 
 Route::get('work_sessions/start', 'WorkSessionsController@create');
 Route::get('work_sessions/active', 'WorkSessionsController@active');
+Route::get('work_sessions', 'WorkSessionsController@index');
 Route::post('work_sessions', 'WorkSessionsController@store');
 Route::post('work_sessions/end', 'WorkSessionsController@end');
 Route::get('work_sessions/past', 'WorkSessionsController@past');
+Route::get('work_sessions/report', 'WorkSessionsController@report');
 
 Route::get('admin', 'AdminController@index');
 Route::get('admin/activate/{user}', 'AdminController@activateUser');
