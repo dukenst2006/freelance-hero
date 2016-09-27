@@ -13,7 +13,7 @@
                             <p>{{ date_format( date_create($work_session->end_time), 'F jS, Y') }}, {{ $work_session->project->name }}: <strong>{{ $work_session->total_hours }}hr(s)</strong></p>
                         @endforeach
                     @else
-                        <p>No active work sessions.</p>
+                        <p>No completed work sessions.</p>
                     @endif
                 </div>
             </div>

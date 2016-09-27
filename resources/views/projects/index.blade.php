@@ -65,6 +65,7 @@
                 <p>&nbsp;</p>
             @else
                 <p><em>No active personal projects.</em></p>
+                <p>&nbsp;</p>
             @endif
 
             @if ( count($organizations) > 0 )
