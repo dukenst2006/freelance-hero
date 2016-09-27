@@ -92,4 +92,30 @@ class WorkSessionTest extends TestCase
         $this->assertEquals($recent_work_sessions->count(), 3);
 
     }
+
+    /** @test */
+    public function can_return_summary_of_this_weeks_sessions()
+    {
+        $user = factory(User::class)->create();
+        $project = factory(Project::class)->create();
+
+        $work_session1 = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'project_id' => $project->id,
+            'start_time' => '2016-06-01 11:00:00',
+            'end_time' => '2016-06-01 12:00:00',
+            'total_hours' => '1.00'
+        ]);
+
+        $work_session2 = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'project_id' => $project->id,
+            'start_time' => '2016-06-01 12:30:00',
+            'end_time' => '2016-06-01 01:00:00',
+            'total_hours' => '0.50'
+        ]);
+
+        $summary = WorkSession::summary($project->id);
+        $this->assertEquals( $summary['total_time'], '1.5' );
+    }
 }
