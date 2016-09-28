@@ -3,6 +3,7 @@
 use App\User;
 use App\Project;
 use App\WorkSession;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -97,25 +98,27 @@ class WorkSessionTest extends TestCase
     public function can_return_summary_of_this_weeks_sessions()
     {
         $user = factory(User::class)->create();
+        Auth::loginUsingId($user->id);
         $project = factory(Project::class)->create();
+        $now = new Carbon();
 
         $work_session1 = factory(WorkSession::class)->create([
             'user_id' => $user->id,
             'project_id' => $project->id,
-            'start_time' => '2016-06-01 11:00:00',
-            'end_time' => '2016-06-01 12:00:00',
+            'start_time' => $now->hour(0)->minute(1)->second(0)->toDateTimeString(),
+            'end_time' => $now->hour(1)->minute(1)->second(0)->toDateTimeString(),
             'total_hours' => '1.00'
         ]);
 
         $work_session2 = factory(WorkSession::class)->create([
             'user_id' => $user->id,
             'project_id' => $project->id,
-            'start_time' => '2016-06-01 12:30:00',
-            'end_time' => '2016-06-01 01:00:00',
+            'start_time' => $now->hour(1)->minute(2)->second(0)->toDateTimeString(),
+            'end_time' => $now->hour(1)->minute(32)->second(0)->toDateTimeString(),
             'total_hours' => '0.50'
         ]);
 
-        $summary = WorkSession::summary($project->id);
+        $summary = WorkSession::summary($project);
         $this->assertEquals( $summary['total_time'], '1.5' );
     }
 }
