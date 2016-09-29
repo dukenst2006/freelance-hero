@@ -35,7 +35,8 @@ class WorkSessionsController extends Controller
 
     public function report()
     {
-        return view('work_sessions.report', compact('weekly_totals'));
+        $session_summaries = WorkSession::summary();
+        return view('work_sessions.report', compact('session_summaries'));
     }
 
     public function create()

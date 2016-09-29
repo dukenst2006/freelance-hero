@@ -52,19 +52,24 @@ class WorkSession extends Model
         $end_point = $end ?: new Carbon();
 
         if ( $project ) {
-            return $sessions = WorkSession::select(\DB::raw('SUM(total_hours) as total_time'))->where([
-                ['user_id', Auth::user()->id],
-                ['project_id', $project->id],
-                ['start_time', '>=', $starting_point],
-                ['end_time', '<=', $end_point]
-            ])->first();
+            return $sessions = \DB::table('work_sessions')
+                ->join('projects', 'work_sessions.project_id', '=', 'projects.id')
+                ->select(\DB::raw('SUM(work_sessions.total_hours) as total_time, projects.name'))
+                ->where([
+                    ['work_sessions.user_id', Auth::user()->id],
+                    ['work_sessions.project_id', $project->id],
+                    ['work_sessions.start_time', '>=', $starting_point],
+                    ['work_sessions.end_time', '<=', $end_point]
+                ])->first();
         } else {
-            return $sessions = WorkSession::select(\DB::raw('project_id, SUM(total_hours) as total_time'))->where([
-                ['user_id', Auth::user()->id],
-                ['project_id', $project->id],
-                ['start_time', '>=', $starting_point],
-                ['end_time', '<=', $end_point]
-            ])->groupBy('project_id')->first();
+            return $sessions = \DB::table('work_sessions')
+                ->join('projects', 'work_sessions.project_id', '=', 'projects.id')
+                ->select(\DB::raw('SUM(work_sessions.total_hours) as total_time, projects.name'))
+                ->where([
+                    ['work_sessions.user_id', Auth::user()->id],
+                    ['work_sessions.start_time', '>=', $starting_point],
+                    ['work_sessions.end_time', '<=', $end_point]
+                ])->groupBy('work_sessions.project_id')->get();
         }
     }
 

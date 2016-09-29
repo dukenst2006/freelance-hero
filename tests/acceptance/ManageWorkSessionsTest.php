@@ -3,6 +3,7 @@
 use App\User;
 use App\Project;
 use App\WorkSession;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -170,5 +171,33 @@ class ManageWorkSessionsTest extends TestCase
              ->visit('/work_sessions/past')
              ->see('Test Project')
              ->dontSee('Test Project 2');
+    }
+
+    /** @test */
+    public function a_user_can_view_work_session_summaries()
+    {
+        $project = factory(Project::class)->create(['name' => 'Test Project', 'user_id' => $this->user->id]);
+        $now = new Carbon();
+
+        $work_session1 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project->id,
+            'start_time' => $now->hour(0)->minute(1)->second(0)->toDateTimeString(),
+            'end_time' => $now->hour(1)->minute(1)->second(0)->toDateTimeString(),
+            'total_hours' => '1'
+        ]);
+
+        $work_session2 = factory(WorkSession::class)->create([
+            'user_id' => $this->user->id,
+            'project_id' => $project->id,
+            'start_time' => $now->hour(1)->minute(2)->second(0)->toDateTimeString(),
+            'end_time' => $now->hour(1)->minute(32)->second(0)->toDateTimeString(),
+            'total_hours' => '.5'
+        ]);
+
+        $this->actingAs($this->user)
+             ->visit('/work_sessions/report')
+             ->see('Test Project')
+             ->see('1.5');
     }
 }
