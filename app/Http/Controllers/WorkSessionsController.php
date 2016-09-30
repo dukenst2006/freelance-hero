@@ -8,6 +8,7 @@ use App\WorkSession;
 use App\Http\Requests\WorkSessionRequest;
 use Session;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class WorkSessionsController extends Controller
 {
@@ -35,7 +36,25 @@ class WorkSessionsController extends Controller
 
     public function report()
     {
-        $session_summaries = WorkSession::summary();
+        $start = null;
+        $end = null;
+
+        $timeframe = Input::get('period');
+        $now = new Carbon();
+
+        switch($timeframe) {
+            case "week":
+                $start = $now->startOfWeek();
+                break;
+            case "month":
+                $start = $now->startOfMonth();
+                break;
+            case "bimonthly":
+                $start = WorkSession::getBiMonthlyDate();
+                break;
+        }
+
+        $session_summaries = WorkSession::summary(null, $start, $end);
         return view('work_sessions.report', compact('session_summaries'));
     }
 

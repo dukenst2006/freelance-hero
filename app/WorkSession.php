@@ -82,4 +82,9 @@ class WorkSession extends Model
     {
     	return $this->belongsTo('App\User');
     }
+
+    public static function getBiMonthlyDate()
+    {
+        return "2016-09-15 00:00:00";
+    }
 }
