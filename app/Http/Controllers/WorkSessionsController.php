@@ -39,17 +39,17 @@ class WorkSessionsController extends Controller
         $start = null;
         $end = null;
 
-        $timeframe = Input::get('period');
+        $timeframe = Input::get('timeframe');
         $now = new Carbon();
 
         switch($timeframe) {
-            case "week":
+            case "Weekly":
                 $start = $now->startOfWeek();
                 break;
-            case "month":
+            case "Monthly":
                 $start = $now->startOfMonth();
                 break;
-            case "bimonthly":
+            case "Bimonthly":
                 $start = WorkSession::getBiMonthlyDate();
                 break;
         }

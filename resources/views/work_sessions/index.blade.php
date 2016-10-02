@@ -8,7 +8,7 @@
                 <div class="panel-heading">Work Sessions</div>
                 <div class="panel-body">
                     <p><a href="{{ action( 'WorkSessionsController@past' ) }}">Recent</a></p>
-                    <p><a href="{{ action( 'WorkSessionsController@report', ['period'=> 'week'] ) }}">Reports</a></p>
+                    <p><a href="{{ action( 'WorkSessionsController@report', ['timeframe'=> 'Weekly'] ) }}">Reports</a></p>
                 </div>
             </div>
         </div>
