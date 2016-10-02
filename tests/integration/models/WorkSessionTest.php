@@ -119,6 +119,6 @@ class WorkSessionTest extends TestCase
         ]);
 
         $summary = WorkSession::summary($project);
-        $this->assertEquals( $summary['total_time'], '1.5' );
+        $this->assertEquals( $summary->total_time, '1.5' );
     }
 }

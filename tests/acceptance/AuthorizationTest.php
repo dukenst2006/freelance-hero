@@ -58,13 +58,13 @@ class AuthorizationTest extends TestCase
     {
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
+        $organization1 = factory(Organization::class)->create(['name' => 'RGR', 'user_id' => $user1->id]);
 
-        $project1 = factory(Project::class)->create(['name' => 'Test 1', 'user_id' => $user1->id]);
+        $project1 = factory(Project::class)->create(['name' => 'Test 1', 'user_id' => $user1->id, 'organization_id' => $organization1->id]);
         $project2 = factory(Project::class)->create(['name' => 'Test 2', 'user_id' => $user2->id]);
 
         $this->actingAs($user1)
              ->visit('/projects')
-             ->see('All Projects')
              ->see('Test 1')
              ->dontSee('Test 2');
 
