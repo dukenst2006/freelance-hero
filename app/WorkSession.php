@@ -85,6 +85,12 @@ class WorkSession extends Model
 
     public static function getBiMonthlyDate()
     {
-        return "2016-09-15 00:00:00";
+        $now = new Carbon("2016-02-18 12:37:13");
+
+        if ( $now->day >= 16 ) {
+            return $now->day(16)->hour(0)->minute(0)->second(0);
+        } else {
+            return $now->startOfMonth();
+        }
     }
 }
