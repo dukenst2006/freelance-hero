@@ -32,12 +32,14 @@ class WorkSession extends Model
         return $work_session ?: false;
     }
 
-    public static function completed($user_id = null)
+    public static function completed($limit = null, $user_id = null)
     {
         $user_id = $user_id ?: Auth::user()->id;
-        $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->get();
-
-        return $work_sessions;
+        if ( $limit ) {
+            return $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->limit($limit)->get();
+        } else {
+            return $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->get();
+        }
     }
 
     public static function recent($number = 5)

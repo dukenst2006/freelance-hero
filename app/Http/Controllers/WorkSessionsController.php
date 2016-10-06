@@ -30,7 +30,7 @@ class WorkSessionsController extends Controller
 
     public function past()
     {
-        $work_sessions = WorkSession::completed();
+        $work_sessions = WorkSession::completed(5);
         return view('work_sessions.past', compact('work_sessions'));
     }
 

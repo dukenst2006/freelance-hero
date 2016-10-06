@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Previous Work Sessions</div>
+                <div class="panel-heading">Last 5 Work Sessions</div>
 
                 <div class="panel-body">
                     @if ( count($work_sessions) > 0 )
