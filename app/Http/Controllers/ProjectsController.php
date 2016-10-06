@@ -63,4 +63,9 @@ class ProjectsController extends Controller
 
         return redirect()->action('ProjectsController@show', $project->id);
     }
+
+    public function sessions(Project $project)
+    {
+        return view('projects.sessions', compact('project'));
+    }
 }

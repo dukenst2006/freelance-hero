@@ -33,6 +33,7 @@ Route::resource('organizations', 'OrganizationsController');
 
 Route::resource('projects', 'ProjectsController');
 Route::post('projects/complete', 'ProjectsController@complete');
+Route::get('projects/{project}/sessions', 'ProjectsController@sessions');
 
 Route::get('work_sessions/start', 'WorkSessionsController@create');
 Route::get('work_sessions/active', 'WorkSessionsController@active');
