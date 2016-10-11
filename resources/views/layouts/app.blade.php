@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="/css/jquery-ui.min.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/app.css">
+    @if( App::environment('local') )
+        <link rel="stylesheet" href="/css/local.css">
+    @endif
 
     <style>
         body {
