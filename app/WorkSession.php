@@ -35,11 +35,12 @@ class WorkSession extends Model
     public static function completed($limit = null, $user_id = null)
     {
         $user_id = $user_id ?: Auth::user()->id;
-        if ( $limit ) {
-            return $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->limit($limit)->get();
-        } else {
-            return $work_sessions = WorkSession::where(['user_id' => $user_id])->whereNotNull('end_time')->get();
-        }
+
+        return $work_sessions = WorkSession::where(['user_id' => $user_id])
+                    ->whereNotNull('end_time')
+                    ->limit($limit)
+                    ->orderBy('end_time', 'desc')
+                    ->get();
     }
 
     public static function recent($number = 5)
