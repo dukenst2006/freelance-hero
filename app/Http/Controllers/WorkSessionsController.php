@@ -85,24 +85,7 @@ class WorkSessionsController extends Controller
     public function end()
     {
         $work_session = WorkSession::active();
-
-        $work_session->end_time = new Carbon();
-        $start_time_formatted = new Carbon($work_session->start_time);
-        $interval = $work_session->end_time->diff($start_time_formatted);
-        $work_session->total_hours = $interval->h;
-
-        if ( $interval->i > 45 ) {
-            $work_session->total_hours += 1;
-        } else {
-            if ( $interval->i % 15 != 0 ) {
-                $nearest_quarter = $interval->i - ($interval->i % 15) + 15;
-            } else {
-                $nearest_quarter = $interval->i;
-            }
-            $work_session->total_hours += $nearest_quarter / 60;
-        }
-
-        $work_session->save();
+        $work_session->end();
 
         Session::forget('active_work_session');
 

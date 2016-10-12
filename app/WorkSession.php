@@ -96,4 +96,25 @@ class WorkSession extends Model
             return $now->startOfMonth();
         }
     }
+
+    public function end()
+    {
+        $this->end_time = new Carbon();
+        $start_time_formatted = new Carbon($this->start_time);
+        $interval = $this->end_time->diff($start_time_formatted);
+        $this->total_hours = $interval->h;
+
+        if ( $interval->i > 45 ) {
+            $this->total_hours += 1;
+        } else {
+            if ( $interval->i % 15 != 0 ) {
+                $nearest_quarter = $interval->i - ($interval->i % 15) + 15;
+            } else {
+                $nearest_quarter = $interval->i;
+            }
+            $this->total_hours += $nearest_quarter / 60;
+        }
+
+        $this->save();
+    }
 }
