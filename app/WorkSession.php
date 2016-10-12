@@ -99,22 +99,32 @@ class WorkSession extends Model
 
     public function end()
     {
-        $this->end_time = new Carbon();
         $start_time_formatted = new Carbon($this->start_time);
-        $interval = $this->end_time->diff($start_time_formatted);
-        $this->total_hours = $interval->h;
 
-        if ( $interval->i > 45 ) {
-            $this->total_hours += 1;
-        } else {
-            if ( $interval->i % 15 != 0 ) {
-                $nearest_quarter = $interval->i - ($interval->i % 15) + 15;
-            } else {
-                $nearest_quarter = $interval->i;
-            }
-            $this->total_hours += $nearest_quarter / 60;
-        }
+        $this->end_time = new Carbon();
+        $this->total_hours = $this->calculateTotalHours( $start_time_formatted, $this->end_time );
 
         $this->save();
+    }
+
+    private function calculateTotalHours( Carbon $start_time, Carbon $end_time )
+    {
+        $time_difference = $end_time->diff($start_time);
+        $total_hours = $time_difference->h;
+
+        $minutes = max( ($time_difference->i - 4), 0 );
+
+        if ( $minutes > 45 ) {
+            $total_hours += 1;
+        } else {
+            if ( $minutes % 15 != 0 ) {
+                $nearest_quarter = $minutes - ($minutes % 15) + 15;
+            } else {
+                $nearest_quarter = $minutes;
+            }
+            $total_hours += $nearest_quarter / 60;
+        }
+
+        return $total_hours;
     }
 }

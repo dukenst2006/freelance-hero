@@ -121,4 +121,56 @@ class WorkSessionTest extends TestCase
         $summary = WorkSession::summary($project);
         $this->assertEquals( $summary->total_time, '1.5' );
     }
+
+    /** @test */
+    public function can_end_session()
+    {
+        $user = factory(User::class)->create();
+        $now = new Carbon();
+
+        $work_session = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'start_time' => $now->subMinutes(10),
+            'end_time' => null
+        ]);
+
+        $work_session->end();
+
+        $this->assertEquals( $work_session->total_hours, '.25' );
+        $this->seeInDatabase('work_sessions', ['id' => $work_session->id, 'total_hours' => '.25']);
+    }
+
+    /** @test */
+    public function can_round_session_time_up_to_next_quarter_when_more_than_five_minutes_past_last_quarter()
+    {
+        $user = factory(User::class)->create();
+        $now = new Carbon();
+
+        $work_session = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'start_time' => $now->subMinutes(21),
+            'end_time' => null
+        ]);
+
+        $work_session->end();
+
+        $this->assertEquals( '.50', $work_session->total_hours );
+    }
+
+    /** @test */
+    public function can_round_session_time_down_to_last_quarter_when_less_than_five_minutes_past_last_quarter()
+    {
+        $user = factory(User::class)->create();
+        $now = new Carbon();
+
+        $work_session = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'start_time' => $now->subMinutes(17),
+            'end_time' => null
+        ]);
+
+        $work_session->end();
+
+        $this->assertEquals( '.25', $work_session->total_hours );
+    }
 }
