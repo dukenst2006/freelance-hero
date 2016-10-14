@@ -40,6 +40,7 @@
                     @else
                         <p>No completed work sessions.</p>
                     @endif
+                    <p><a href="{{ action( 'ProjectsController@sessions', $project->id ) }}">View All</a></p>
                 </div>
             </div>
         </div>

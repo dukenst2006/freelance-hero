@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Project;
 use App\Organization;
+use App\WorkSession;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\Request;
 
@@ -66,6 +67,7 @@ class ProjectsController extends Controller
 
     public function sessions(Project $project)
     {
-        return view('projects.sessions', compact('project'));
+        $work_sessions = $project->work_sessions()->paginate(10);
+        return view('projects.sessions', compact('project', 'work_sessions'));
     }
 }
