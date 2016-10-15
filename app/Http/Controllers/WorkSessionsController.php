@@ -22,6 +22,16 @@ class WorkSessionsController extends Controller
         return view('work_sessions.index');
     }
 
+    public function show(WorkSession $work_session)
+    {
+        return view('work_sessions.show', compact('work_session'));
+    }
+
+    public function edit(WorkSession $work_session)
+    {
+        return view('work_sessions.show', compact('work_session'));
+    }
+
     public function active()
     {
         $work_session = WorkSession::active();

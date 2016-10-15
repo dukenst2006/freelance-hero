@@ -42,6 +42,8 @@ Route::post('work_sessions', 'WorkSessionsController@store');
 Route::post('work_sessions/end', 'WorkSessionsController@end');
 Route::get('work_sessions/past', 'WorkSessionsController@past');
 Route::get('work_sessions/report', 'WorkSessionsController@report');
+Route::get('work_sessions/{work_session}', 'WorkSessionsController@show');
+Route::get('work_sessions/{work_session}/edit', 'WorkSessionsController@edit');
 
 Route::get('admin', 'AdminController@index');
 Route::get('admin/activate/{user}', 'AdminController@activateUser');
