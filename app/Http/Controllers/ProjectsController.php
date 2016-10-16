@@ -25,7 +25,8 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        $work_sessions = $project->work_sessions()->paginate(10);
+        return view('projects.show', compact('project', 'work_sessions'));
     }
 
     public function edit(Project $project)
@@ -63,11 +64,5 @@ class ProjectsController extends Controller
         $project->complete();
 
         return redirect()->action('ProjectsController@show', $project->id);
-    }
-
-    public function sessions(Project $project)
-    {
-        $work_sessions = $project->work_sessions()->paginate(10);
-        return view('projects.sessions', compact('project', 'work_sessions'));
     }
 }

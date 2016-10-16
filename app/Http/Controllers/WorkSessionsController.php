@@ -106,7 +106,8 @@ class WorkSessionsController extends Controller
         $work_session->end();
 
         Session::forget('active_work_session');
+        Session::flash('status', 'Work Session Complete!');
 
-        return redirect()->action('WorkSessionsController@past');        
+        return redirect()->action('ProjectsController@show', $work_session->project_id);
     }
 }

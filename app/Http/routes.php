@@ -11,6 +11,7 @@
 |
 */
 
+// basic home routes
 Route::get('/', function () {
 	if ( Auth::guest() ) {
 	    return view('welcome');
@@ -18,27 +19,29 @@ Route::get('/', function () {
 		return redirect('/home');
 	}
 });
-
+Route::get('/home', 'HomeController@index');
 Route::post('/contact', 'BaseController@contact');
 
+// login and registration routes
 Route::auth();
 
+// user profile section
 Route::get('/profile', 'UsersController@profile');
 Route::get('/profile/edit', 'UsersController@edit');
 Route::put('/profile', 'UsersController@update');
 
-Route::get('/home', 'HomeController@index');
-
+// organizations section
 Route::resource('organizations', 'OrganizationsController');
 
+// projects section
 Route::resource('projects', 'ProjectsController');
 Route::post('projects/complete', 'ProjectsController@complete');
-Route::get('projects/{project}/sessions', 'ProjectsController@sessions');
 
-Route::get('work_sessions/start', 'WorkSessionsController@create');
-Route::get('work_sessions/active', 'WorkSessionsController@active');
+// work sessions routes. not using a resource
 Route::get('work_sessions', 'WorkSessionsController@index');
 Route::post('work_sessions', 'WorkSessionsController@store');
+Route::get('work_sessions/start', 'WorkSessionsController@create');
+Route::get('work_sessions/active', 'WorkSessionsController@active');
 Route::post('work_sessions/end', 'WorkSessionsController@end');
 Route::get('work_sessions/past', 'WorkSessionsController@past');
 Route::get('work_sessions/report', 'WorkSessionsController@report');
@@ -46,6 +49,7 @@ Route::get('work_sessions/{work_session}', 'WorkSessionsController@show');
 Route::put('work_session/{work_session}', 'WorkSessionsController@update');
 Route::get('work_sessions/{work_session}/edit', 'WorkSessionsController@edit');
 
+// admin section
 Route::get('admin', 'AdminController@index');
 Route::get('admin/activate/{user}', 'AdminController@activateUser');
 Route::get('admin/deactivate/{user}', 'AdminController@deactivateUser');

@@ -33,14 +33,24 @@
                 <div class="panel-heading">Work Sessions</div>
 
                 <div class="panel-body">
-                    @if ( count($project->work_sessions) > 0 )
-                        @foreach ( $project->work_sessions as $work_session )
-                            <p>{{ date_format( date_create($work_session->end_time), 'l, m/d/Y') }}, {{ $work_session->project->name }}: <strong>{{ $work_session->total_hours }}hr(s)</strong></p>
+                    @if ( count($work_sessions) > 0 )
+                        <table class="table">
+                        <?php $i = 1; ?>
+                        @foreach ( $work_sessions as $work_session )
+                            <tr class="{{ $i === 1 && Session::has('status') ? 'success' : null }}">
+                                <td>
+                                    {{ date_format( date_create($work_session->end_time), 'l, m/d/Y') }}, {{ $work_session->project->name }}: <strong>{{ $work_session->total_hours }}hr(s)</strong>
+                                    &nbsp;&nbsp;&nbsp;<a href="{{ action( 'WorkSessionsController@show', $work_session->id ) }}"><i class="fa fa-btn fa-eye"></i></a>
+                                    &nbsp;&nbsp;&nbsp;<a href="{{ action( 'WorkSessionsController@edit', $work_session->id ) }}"><i class="fa fa-btn fa-pencil"></i></a>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
                         @endforeach
+                        </table>
+                        {{ $work_sessions->links() }}
                     @else
                         <p>No completed work sessions.</p>
                     @endif
-                    <p><a href="{{ action( 'ProjectsController@sessions', $project->id ) }}">View All</a></p>
                 </div>
             </div>
         </div>

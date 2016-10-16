@@ -54,7 +54,6 @@
                                                     <p>{{ $work_session->total_hours }}hr(s), <em>{{ $session_date->diffForHumans() }}</em></p>
                                                 @endif
                                             @endforeach
-                                            <a href="{{ action('ProjectsController@sessions', $project->id) }}">View All</a>
                                         @else
                                             <p><em>No work sessions.</em></p>
                                         @endif
@@ -117,7 +116,6 @@
                                                         <p>{{ $work_session->total_hours }}hr(s), <em>{{ $session_date->diffForHumans() }}</em></p>
                                                     @endif
                                                 @endforeach
-                                                <a href="{{ action('ProjectsController@sessions', $project->id) }}">View All</a>
                                             @else
                                                 <p><em>No work sessions.</em></p>
                                             @endif
