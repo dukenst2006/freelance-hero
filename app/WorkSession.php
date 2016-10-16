@@ -107,6 +107,24 @@ class WorkSession extends Model
         $this->save();
     }
 
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool|int
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        if (! $this->exists) {
+            return false;
+        }
+
+        $this->adjusted = true;
+
+        return $this->fill($attributes)->save($options);
+    }
+
     private function calculateTotalHours( Carbon $start_time, Carbon $end_time )
     {
         $time_difference = $end_time->diff($start_time);

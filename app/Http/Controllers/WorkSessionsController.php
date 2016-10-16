@@ -9,6 +9,7 @@ use App\Http\Requests\WorkSessionRequest;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class WorkSessionsController extends Controller
 {
@@ -29,7 +30,14 @@ class WorkSessionsController extends Controller
 
     public function edit(WorkSession $work_session)
     {
-        return view('work_sessions.show', compact('work_session'));
+        return view('work_sessions.edit', compact('work_session'));
+    }
+
+    public function update(WorkSession $work_session, Request $request)
+    {
+        $work_session->update($request->all());
+
+        return redirect()->action('WorkSessionsController@show', $work_session->id);
     }
 
     public function active()
