@@ -48,6 +48,7 @@
                         @endforeach
                         </table>
                         {{ $work_sessions->links() }}
+                        <p><a href="{{ action( 'WorkSessionsController@report' ) }}">View Summary</a></p>
                     @else
                         <p>No completed work sessions.</p>
                     @endif

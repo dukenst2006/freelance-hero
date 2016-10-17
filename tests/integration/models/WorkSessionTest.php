@@ -72,29 +72,6 @@ class WorkSessionTest extends TestCase
     }
 
     /** @test */
-    public function can_return_recent_work_sessions()
-    {
-        $user = factory(User::class)->create();
-        Auth::loginUsingId($user->id);
-        factory(WorkSession::class, 6)->create(['user_id' => $user->id]);
-
-        $recent_work_sessions = WorkSession::recent();
-        $this->assertEquals($recent_work_sessions->count(), 5);
-    }
-
-    /** @test */
-    public function can_return_custom_number_of_recent_work_sessions()
-    {
-        $user = factory(User::class)->create();
-        Auth::loginUsingId($user->id);
-        factory(WorkSession::class, 6)->create(['user_id' => $user->id]);
-
-        $recent_work_sessions = WorkSession::recent(3);
-        $this->assertEquals($recent_work_sessions->count(), 3);
-
-    }
-
-    /** @test */
     public function can_return_summary_of_this_weeks_sessions()
     {
         $user = factory(User::class)->create();

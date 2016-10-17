@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <p>&nbsp;</p>
-                    <p><a href="{{ action( 'WorkSessionsController@index' ) }}">Back</a></p>
+                    <p><a href="{{ action( 'ProjectsController@index' ) }}">Back</a></p>
                 </div>
             </div>
         </div>

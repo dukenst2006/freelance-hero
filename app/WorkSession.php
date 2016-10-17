@@ -43,11 +43,6 @@ class WorkSession extends Model
                     ->get();
     }
 
-    public static function recent($number = 5)
-    {
-        return WorkSession::where(['user_id' => Auth::user()->id])->orderBy('end_time', 'desc')->limit($number)->get();
-    }
-
     public static function summary(Project $project = null, $start = null, $end = null)
     {
         $now = new Carbon();

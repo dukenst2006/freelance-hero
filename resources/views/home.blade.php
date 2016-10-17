@@ -48,7 +48,7 @@
 
                                         <p class="top-padding"><u>Work Sessions</u></p>
                                         @if ( count($project->work_sessions) > 0 )
-                                            @foreach( $project->work_sessions as $work_session )
+                                            @foreach( $project->work_sessions()->limit(5)->get() as $work_session )
                                                 @if ( $work_session->total_hours )
                                                     <?php
                                                         $session_date = new Carbon\Carbon($work_session->end_time);
