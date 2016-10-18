@@ -11,8 +11,8 @@
                     @if ( count($users) > 0 )
                         @foreach ( $users as $user )
                             <?php
-                                $last_logged_in = $user->last_logged_in ? new Carbon\Carbon($user->last_logged_in) : null;
-                                $last_seen = $last_logged_in ? $last_logged_in->diffForHumans() : 'Never';
+                                $last_seen = $last_seen_times[$user->id] ? new Carbon\Carbon($last_seen_times[$user->id]) : null;
+                                $last_seen_text = $last_seen ? $last_seen->diffForHumans() : 'Never';
                             ?>
                             <h4>{{ $user->first_name }} {{ $user->last_name }}</h4>
                             <p>Email address: {{ $user->email }}</p>
@@ -26,7 +26,7 @@
                             </p>
                             @endif
                             <p>Projects: {{ count( $user->projects )  }}</p>
-                            <p>Last seen: {{ $last_seen }}</p>
+                            <p>Last seen: {{ $last_seen_text }}</p>
                             <p>&nbsp;</p>
                         @endforeach
                     @else

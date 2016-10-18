@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use Redis;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
         $this->middleware('admin');
     }
@@ -18,7 +20,15 @@ class AdminController extends Controller
     public function index()
     {
     	$users = User::all();
-    	return view('admin.index', compact('users'));
+
+        // get each users last_seen date/time from redis
+        $last_seen_times = array();
+        foreach ($users as $user) {
+            $last_seen = Redis::get('users.' . $user->id . '.last_seen');
+            $last_seen_times[$user->id] = $last_seen;
+        }
+
+        return view('admin.index', compact('users', 'last_seen_times'));
     }
 
     public function activateUser(User $user)
