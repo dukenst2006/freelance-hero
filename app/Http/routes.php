@@ -20,7 +20,7 @@ Route::get('/', function () {
 	}
 });
 Route::get('/home', 'HomeController@index');
-Route::post('/contact', 'BaseController@contact');
+Route::post('/contact', 'HomeController@contact');
 
 // login and registration routes
 Route::auth();
