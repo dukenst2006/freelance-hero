@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Auth;
 use App\WorkSession;
@@ -88,8 +89,8 @@ class AuthController extends Controller
         $this->validateLogin($request);
 
         $user = User::where('email', $request->email)->first();
-        if ( !$user->active ) {
-            return $this->sendFailedLoginResponse($request);
+        if ( $user && !$user->active ) {
+            return $this->sendLockedAccountResponse($request);
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -166,5 +167,32 @@ class AuthController extends Controller
         });
 
         return redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the locked account response instance.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLockedAccountResponse(Request $request)
+    {
+        return redirect()->back()
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $this->getLockedAccountMessage(),
+            ]);
+    }
+
+    /**
+     * Get the locked account message.
+     *
+     * @return string
+     */
+    protected function getLockedAccountMessage()
+    {
+        return Lang::has('auth.locked')
+                ? Lang::get('auth.locked')
+                : 'Your account is inactive. Please contact the Support Desk for help.';
     }
 }
