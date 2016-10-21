@@ -2,6 +2,43 @@ $(document).ready(function() {
     $(".datepicker").datepicker({
 		dateFormat: "yy-mm-dd"
     });
+
+    $("#custom-timeframe-button").on("click", function() {
+        $(this).closest(".row").hide();
+        $("#custom-timeframe-selectors").show();
+    });
+
+    $("#preset-timeframe-button").on("click", function() {
+        $(this).closest(".row").hide();
+        $("#date_start").val('');
+        $("#date_end").val('');
+        $("#preset-timeframe-selectors").show();
+    });
+
+    $("#sessions-report").on("submit", function(e) {
+        e.preventDefault();
+        $("#result-container").html('');
+        var timeframe = $("#timeframe").val();
+        var date_start = $("#date_start").val();
+        var date_end = $("#date_end").val();
+        $.ajax({
+            url: "/work_sessions/summary",
+            method: "GET",
+            data: { 
+                timeframe : timeframe,
+                date_start: date_start,
+                date_end: date_end
+            }
+        }).success(function(data) {
+            if ( data.length ) {
+                for ( var i = 0; i < data.length; i++ ) {
+                    $("#result-container").append("<p>" + data[i].name + ": " + data[i].total_time + " hr(s)</p>");
+                }
+            } else {
+                $("#result-container").html("<p>No completed work sessions.</p>");
+            }
+        });
+    });
 });
 
 
