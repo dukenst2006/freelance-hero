@@ -45,6 +45,7 @@ Route::get('work_sessions/active', 'WorkSessionsController@active');
 Route::post('work_sessions/end', 'WorkSessionsController@end');
 Route::get('work_sessions/past', 'WorkSessionsController@past');
 Route::get('work_sessions/report', 'WorkSessionsController@report');
+Route::get('work_sessions/summary', 'WorkSessionsController@summary');
 Route::get('work_sessions/{work_session}', 'WorkSessionsController@show');
 Route::put('work_session/{work_session}', 'WorkSessionsController@update');
 Route::get('work_sessions/{work_session}/edit', 'WorkSessionsController@edit');
