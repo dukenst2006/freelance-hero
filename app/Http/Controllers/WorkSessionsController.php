@@ -55,26 +55,33 @@ class WorkSessionsController extends Controller
 
     public function report()
     {
-        $start = null;
-        $end = null;
+        return view('work_sessions.report', compact('session_summaries'));
+    }
 
-        $timeframe = Input::get('timeframe');
+    public function summary(Request $request)
+    {
+        $start = $request->all()['date_start'] ? $request->all()['date_start'] . ' 00:00:00' : null;
+        $end = $request->all()['date_end'] ? $request->all()['date_end'] . ' 23:59:59' : null;
+        $timeframe = $request->all()['timeframe'];
+
         $now = new Carbon();
 
-        switch($timeframe) {
-            case "Weekly":
-                $start = $now->startOfWeek();
-                break;
-            case "Monthly":
-                $start = $now->startOfMonth();
-                break;
-            case "Bimonthly":
-                $start = WorkSession::getBiMonthlyDate();
-                break;
+        if ( !$start ) {
+            switch($timeframe) {
+                case "Weekly":
+                    $start = $now->startOfWeek();
+                    break;
+                case "Monthly":
+                    $start = $now->startOfMonth();
+                    break;
+                case "Bimonthly":
+                    $start = WorkSession::getBiMonthlyDate();
+                    break;
+            }
         }
 
         $session_summaries = WorkSession::summary(null, $start, $end);
-        return view('work_sessions.report', compact('session_summaries'));
+        return response()->json($session_summaries);
     }
 
     public function create()
