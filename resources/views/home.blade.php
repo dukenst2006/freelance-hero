@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+
+            <alert type="success">
+                <strong>Success!</strong> This is a successful alert with Vue!
+            </alert>
+
             <h1>Dashboard</h1>
             <hr>
             @if ( !Session::has('active_work_session') )
