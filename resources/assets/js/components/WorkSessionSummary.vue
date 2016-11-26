@@ -1,16 +1,23 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row col-sm-12">
             <div class="form-group col-sm-3">
                 <label for="date_start">From</label>
-                <date-picker v-on:change="getResults" :date="date_start" :option="option"></date-picker>
+                <date-picker v-on:change="updateResults" :date="date_start" :option="option"></date-picker>
             </div>
             <div class="form-group col-sm-3">
                 <label for="date_end">Until</label>
-                <date-picker v-on:change="getResults" :date="date_end" :option="option"></date-picker>
+                <date-picker v-on:change="updateResults" :date="date_end" :option="option"></date-picker>
             </div>
         </div>
-        <div class="row">
+        <div class="row col-sm-12">
+            <div class="col-sm-12">
+                <button v-on:click="setTimeframe('weekly')" v-bind:class="{ active: weeklyView }" class="btn btn-default" type="button">Weekly</button>
+                <button v-on:click="setTimeframe('monthly')" v-bind:class="{ active: monthlyView }" class="btn btn-default" type="button">Monthly</button>
+                <button v-on:click="setTimeframe('biMonthly')" v-bind:class="{ active: biMonthlyView }" class="btn btn-default" type="button">Bi-Monthly</button>
+            </div>
+        </div>
+        <div class="row col-sm-12">
             <div class="col-sm-12">
                 <p>&nbsp;</p>
                 <p v-show="results" v-for="result in results">
@@ -27,14 +34,12 @@
 
     export default {
         mounted: function() {
-            this.prepareComponent();
-            this.getResults();
+            this.setTimeframe('monthly');
         },
 
         data: function() {
             return {
                 results: false,
-
                 date_start: {
                     time: ''
                 },
@@ -62,8 +67,7 @@
                         '-webkit-transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
                         'transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
                     }
-                },
-
+                }
             };
         },
 
@@ -72,16 +76,6 @@
         },
 
         methods: {
-            prepareComponent() {
-                var dateObj = new Date();
-                var month = dateObj.getMonth() + 1; //months from 1-12
-                var day = dateObj.getDate();
-                var year = dateObj.getFullYear();
-
-                this.date_start.time = year + "-" + month + "-" + day;
-                this.date_end.time = year + "-" + month + "-" + day;
-            },
-
             getResults: function() {
                 this.$http.get('/work_sessions/summary?date_start=' + this.date_start.time + '&date_end=' + this.date_end.time + '&timeframe=')
                         .then(response => {
@@ -91,6 +85,60 @@
                                 this.results = false;
                             }
                         });
+            },
+
+            updateResults: function() {
+                this.weeklyView = false;
+                this.monthlyView = false;
+                this.biMonthlyView = false;
+
+                this.getResults();
+            },
+
+            setTimeframe: function(timeframe) {
+                var today = new Date();
+                this.date_end.time = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+                switch(timeframe) {
+                    case 'weekly':
+                        this.weeklyView = true;
+                        this.monthlyView = false;
+                        this.biMonthlyView = false;
+                        this.date_start.time = this.getWeekStart(today);
+                        break;
+                    case 'monthly':
+                        this.weeklyView = false;
+                        this.monthlyView = true;
+                        this.biMonthlyView = false;
+                        this.date_start.time = this.getMonthStart(today);
+                        break;
+                    case 'biMonthly':
+                        this.weeklyView = false;
+                        this.monthlyView = false;
+                        this.biMonthlyView = true;
+                        this.date_start.time = this.getBiMonthStart(today);
+                        break;
+                }
+                this.getResults();
+            },
+
+            getWeekStart: function(today) {
+                var day = today.getDay();
+                var diff = today.getDate() - day + (day == 0 ? -6 : 1);
+                var newDate = new Date(today.setDate(diff));
+                return newDate.getFullYear() + "-" + (newDate.getMonth() + 1) + "-" + newDate.getDate();
+            },
+
+            getMonthStart: function(today) {
+                return today.getFullYear() + "-" + (today.getMonth() + 1) + "-01";
+            },
+
+            getBiMonthStart: function(today) {
+                if ( today.getDate() >= 16 ) {
+                    return today.getFullYear() + "-" + (today.getMonth() + 1) + "-16";
+                } else {
+                    return today.getFullYear() + "-" + (today.getMonth() + 1) + "-01";
+                }
             }
         }
     }

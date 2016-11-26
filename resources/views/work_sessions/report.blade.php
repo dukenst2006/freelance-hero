@@ -8,8 +8,9 @@
                 <div class="panel-heading">Work Sessions Report</div>
                 <div class="panel-body">
                     <work-session-summary></work-session-summary>
-                    <p>&nbsp;</p>
-                    <p><a href="{{ action( 'ProjectsController@index' ) }}">Back</a></p>
+                    <div class="col-sm-12 top-padding">
+                        <p><a href="{{ action( 'ProjectsController@index' ) }}">Back</a></p>
+                    </div>
                 </div>
             </div>
         </div>
