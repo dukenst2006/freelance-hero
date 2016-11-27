@@ -150,4 +150,14 @@ class WorkSessionTest extends TestCase
 
         $this->assertEquals( '.25', $work_session->total_hours );
     }
+
+    /** @test */
+    public function a_work_session_can_be_soft_deleted()
+    {
+        $work_session = factory(WorkSession::class)->create();
+        $work_session->delete();
+
+        $this->seeInDatabase('work_sessions', ['id' => $work_session->id]);
+        $this->assertNotNull($work_session->deleted_at);
+    }
 }
