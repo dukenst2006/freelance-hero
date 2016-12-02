@@ -42,6 +42,8 @@
                                     {{ date_format( date_create($work_session->end_time), 'l, m/d/Y') }}, {{ $work_session->project->name }}: <strong>{{ $work_session->total_hours }}hr(s)</strong>
                                     &nbsp;&nbsp;&nbsp;<a href="{{ action( 'WorkSessionsController@show', $work_session->id ) }}"><i class="fa fa-btn fa-eye"></i></a>
                                     &nbsp;&nbsp;&nbsp;<a href="{{ action( 'WorkSessionsController@edit', $work_session->id ) }}"><i class="fa fa-btn fa-pencil"></i></a>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                    &nbsp;&nbsp;&nbsp;<a href="{{ action( 'WorkSessionsController@destroy', $work_session->id ) }}" data-method="delete" class="jquery-postback"><i class="fa fa-btn fa-trash"></i></a>
                                 </td>
                             </tr>
                             <?php $i++; ?>
