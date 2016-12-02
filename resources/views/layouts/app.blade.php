@@ -36,8 +36,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/css/app.css">
-    @if( App::environment('local') )
-        <link rel="stylesheet" href="/css/local.css">
+    @if(! App::environment('production') )
+        <link rel="stylesheet" href="/css/{{ App::environment() }}.css">
     @endif
 
     <style>
