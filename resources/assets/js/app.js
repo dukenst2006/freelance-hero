@@ -20,6 +20,28 @@ const app = new Vue({
     el: '#app'
 });
 
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
+$(document).on('click', 'a.jquery-postback', function(e) {
+    e.preventDefault();
+    var confirm_message = "Are you sure you want to delete this session?";
+
+    var $this = $(this);
+
+    if ( confirm(confirm_message) ) {
+        $.post({
+            type: $this.data('method'),
+            url: $this.attr('href')
+        }).done(function (data) {
+            console.log(data);
+            location.reload();
+        });
+    }
+});
+
 /*
  * Work Session Clock variables and functions.
  *

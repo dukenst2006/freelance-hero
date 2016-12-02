@@ -118,4 +118,11 @@ class WorkSessionsController extends Controller
 
         return redirect()->action('ProjectsController@show', $work_session->project_id);
     }
+
+    public function destroy(WorkSession $work_session)
+    {
+        $work_session->delete();
+
+        return response()->json(['status' => 'success']);
+    }
 }
