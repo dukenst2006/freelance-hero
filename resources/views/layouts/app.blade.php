@@ -35,12 +35,9 @@
     <!-- ****** faviconit.com favicons ****** -->
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/jquery-ui.min.css">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/app.css">
-    @if( App::environment('local') )
-        <link rel="stylesheet" href="/css/local.css">
+    @if(! App::environment('production') )
+        <link rel="stylesheet" href="/css/{{ App::environment() }}.css">
     @endif
 
     <style>
@@ -118,7 +115,9 @@
         <div class="alert alert-danger">{{ Session::get('flash_error_message') }}</div>
     @endif
 
-    @yield('content')
+    <div id="app">
+        @yield('content')
+    </div>
 
 
     @if ( Session::has('active_work_session') )
@@ -141,10 +140,6 @@
     @endif
 
     <!-- JavaScripts -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
