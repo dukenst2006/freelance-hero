@@ -49,6 +49,7 @@ Route::get('work_sessions/summary', 'WorkSessionsController@summary');
 Route::get('work_sessions/{work_session}', 'WorkSessionsController@show');
 Route::put('work_session/{work_session}', 'WorkSessionsController@update');
 Route::get('work_sessions/{work_session}/edit', 'WorkSessionsController@edit');
+Route::delete('work_sessions/{work_session}', 'WorkSessionsController@destroy');
 
 // admin section
 Route::get('admin', 'AdminController@index');
