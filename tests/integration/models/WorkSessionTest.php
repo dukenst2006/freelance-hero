@@ -150,4 +150,45 @@ class WorkSessionTest extends TestCase
 
         $this->assertEquals( '.25', $work_session->total_hours );
     }
+
+    /** @test */
+    public function a_work_session_can_be_soft_deleted()
+    {
+        $work_session = factory(WorkSession::class)->create();
+        $work_session->delete();
+
+        $this->seeInDatabase('work_sessions', ['id' => $work_session->id]);
+        $this->assertNotNull($work_session->deleted_at);
+    }
+
+    /** @test */
+    public function work_session_summary_excludes_sessions_that_have_been_soft_deleted()
+    {
+        $user = factory(User::class)->create();
+        $this->be($user);
+
+        $remaining_session = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'start_time' => '2016-12-02 13:00:00',
+            'end_time' => '2016-12-02 15:00:00',
+            'total_hours' => '2'
+        ]);
+        $deleted_session = factory(WorkSession::class)->create([
+            'user_id' => $user->id,
+            'start_time' => '2016-12-02 16:00:00',
+            'end_time' => '2016-12-02 18:00:00',
+            'total_hours' => '2'
+        ]);
+
+        $deleted_session->delete();
+
+        $summaries = WorkSession::summary(null, '2016-12-01', '2016-12-03');
+
+        $summary_total = 0;
+        foreach ($summaries as $summary) {
+            $summary_total += (int) $summary->total_time;
+        }
+
+        $this->assertEquals(2, $summary_total);
+    }
 }
