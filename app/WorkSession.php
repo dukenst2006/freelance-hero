@@ -67,7 +67,8 @@ class WorkSession extends Model
                     ['work_sessions.user_id', Auth::user()->id],
                     ['work_sessions.project_id', $project->id],
                     ['work_sessions.start_time', '>=', $starting_point],
-                    ['work_sessions.end_time', '<=', $end_point]
+                    ['work_sessions.end_time', '<=', $end_point],
+                    ['work_sessions.deleted_at', null]
                 ])->first();
         } else {
             return $sessions = \DB::table('work_sessions')
@@ -76,7 +77,8 @@ class WorkSession extends Model
                 ->where([
                     ['work_sessions.user_id', Auth::user()->id],
                     ['work_sessions.start_time', '>=', $starting_point],
-                    ['work_sessions.end_time', '<=', $end_point]
+                    ['work_sessions.end_time', '<=', $end_point],
+                    ['work_sessions.deleted_at', null]
                 ])->groupBy('work_sessions.project_id')->get();
         }
     }
