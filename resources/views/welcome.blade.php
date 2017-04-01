@@ -58,6 +58,9 @@
                         <label for="comments">Comments</label>
                         <textarea class="form-control" rows="3" id="comments" name="comments"></textarea>  
                     </div>
+                    <div class="form-group">
+                        {!! app('captcha')->display(); !!}
+                    </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
