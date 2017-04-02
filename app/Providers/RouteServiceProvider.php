@@ -24,11 +24,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
-
         parent::boot($router);
         $router->model('projects', 'App\Project');
         $router->model('organizations', 'App\Organization');
+        $router->model('work_sessions', 'App\WorkSession');
     }
 
     /**

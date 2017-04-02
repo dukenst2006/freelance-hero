@@ -152,7 +152,8 @@ return [
          * Added Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
