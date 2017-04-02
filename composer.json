@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "^5.2",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "anhskohbo/no-captcha": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -36,7 +36,8 @@ class HomeController extends Controller
     {
         $this->validate($request, [
             'fullName' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $data = $request->all();
