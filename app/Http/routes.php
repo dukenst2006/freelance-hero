@@ -8,6 +8,9 @@ Route::get('/', function () {
 		return redirect('/home');
 	}
 });
+Route::get('/redesign', function () {
+	return view('welcome2');
+});
 Route::get('/home', 'HomeController@index');
 Route::post('/contact', 'HomeController@contact');
 
