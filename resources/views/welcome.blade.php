@@ -1,93 +1,98 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="intro-message">
-                    <h1>Freelance Hero</h1>
-                    <h3>Companion App for the Self-Employed</h3>
-                    <hr class="intro-divider">
-                </div>
-            </div>
+  <section class="hero is-primary is-large header-image">
+    <div class="hero-head">
+      <header class="nav">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item title" href="{{ url('/') }}">
+                <h1 class="title is-4">Freelance Hero</h1>
+            </a>
+          </div>
+          <span class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <div class="nav-right nav-menu">
+            <a class="nav-item" href="{{ url('/login') }}">
+              Login
+            </a>
+            <a class="nav-item" href="{{ url('/register') }}">
+              Register
+            </a>
+          </div>
         </div>
+      </header>
     </div>
-    <!-- /.container -->
-</div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-2">
+          Freelance Hero
+        </h1>
+        <h2 class="subtitle is-5">
+          Companion App for the Self-Employed.
+        </h2>
+        <p>
+          <a class="button is-outlined" href="{{ url('/register') }}">
+            <span>
+              Sign Up
+            </span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+  <div class="hero-cta">
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <p class="title">Get started today!</p>
+      </div>
+    </nav>
+  </div>
+  <div class="section main">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4">
+          <div class="panel">
+            <div class="panel-block section">
+              <p class="has-text-centered"><i class="fa fa-bar-chart icon-block"></i></p>
+              <br>
+              <p>Keep track of all your projects and their progress by setting start and target completion dates.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="panel">
+            <div class="panel-block section">
+              <p class="has-text-centered"><i class="fa fa-clock-o icon-block"></i></p>
+              <br>
+              <p>Track each work session with a built in timer, and view billing summaries across any timeframe you want.</p>
+            </div>
+          </div>
 
-<a name="about"></a>
-<div class="content-section-a">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">About Freelance Hero</h2>
-                <p class="lead">Freelance Hero is an app that helps freelancers and contractors manage ongoing projects, log individual work sessions, and generate invoices. Create an account and get started today!</p>
-            </div>
-            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                <img class="img-responsive" src="/books.jpg" alt="">
-            </div>
         </div>
-    </div>
-</div>
+        <div class="column is-4">
+          <div class="panel">
+            <div class="panel-block section">
+              <p class="has-text-centered"><i class="fa fa-users icon-block"></i></p>
+              <br>
+              <p>Manage your clients and create and send invoices based on work done on the various projects for each.</p>
+            </div>
+          </div>
 
-<a name="contact"></a>
-<div class="content-section-b">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">Contact Us</h2>
-                <p class="lead">Have questions or comments? Drop us a line!</p>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-                <form action="/contact" method="POST">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="fullName">Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comments">Comments</label>
-                        <textarea class="form-control" rows="3" id="comments" name="comments"></textarea>  
-                    </div>
-                    <div class="form-group">
-                        {!! app('captcha')->display(); !!}
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
         </div>
+      </div>
     </div>
-</div>
-
-<footer>
+  </div>
+  <footer class="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="list-inline">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li class="footer-menu-divider">&sdot;</li>
-                    <li>
-                        <a href="/#about">About</a>
-                    </li>
-                    <li class="footer-menu-divider">&sdot;</li>
-                    <li>
-                        <a href="/#contact">Contact</a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted small">Copyright &copy; Freelance Hero 2016. All Rights Reserved</p>
-            </div>
-        </div>
+      <div class="content has-text-centered">
+        <p>
+            Copyright &copy; Freelance Hero 2017. All Rights Reserved.
+        </p>
+      </div>
     </div>
-</footer>
-@endsection
+  </footer>
+  @endsection
