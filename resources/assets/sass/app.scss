@@ -1,6 +1,5 @@
-// @import "node_modules/bulma/bulma.sass";
 @import 'components/Alert';
-@import 'landing_page.scss';
+@import 'bulma_templates.scss';
 
 #work-session-panel {
     height: 200px;
@@ -99,4 +98,15 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+
+// bulma modifiers
+
+.checkbox {
+    color: #4a4a4a;
+}
+
+.box {
+    margin-bottom: 20px;
 }
