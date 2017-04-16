@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Mail;
 use App\Project;
+use App\WorkSession;
+use App\Organization;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -29,7 +32,18 @@ class HomeController extends Controller
     public function index()
     {
         $projects = Project::where(['user_id' => Auth::user()->id])->get();
-        return view('home', compact('projects'));
+
+        $organizations = Organization::where(['user_id' => Auth::user()->id])->get();
+
+        $ytd_hours = DB::table('work_sessions')
+                            ->select(DB::raw('sum(total_hours) as total_hours'))
+                            ->where([
+                                ['user_id', Auth::user()->id],
+                                ['end_time', '>=', '2016-09-01 00:00:00'],
+                            ])
+                            ->first();
+
+        return view('home', compact('projects', 'organizations', 'ytd_hours'));
     }
 
     public function contact(Request $request)
