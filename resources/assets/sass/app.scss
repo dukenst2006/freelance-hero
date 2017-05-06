@@ -1,6 +1,21 @@
 @import 'components/Alert';
 @import 'bulma_templates.scss';
 
+html {
+  height: 100%;
+  min-height: 600px;
+  position: relative;
+}
+
+body {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+    background: #ffffff;
+}
+
 #work-session-panel {
     height: 200px;
     width: 300px;
@@ -109,4 +124,10 @@ p.copyright {
 
 .box {
     margin-bottom: 20px;
+}
+
+.dashboard-sections {
+    .button {
+        margin-top: 10px;
+    }
 }
